@@ -1,0 +1,25 @@
+---
+
+- name: Start of tasks from main.yml
+  debug: msg="Start of tasks from main.yml"
+
+- name: Include devtools.archlinux.yml
+  include_tasks: devtools.archlinux.yml
+  tags: [devtools]
+  when: ansible_os_family == "Archlinux"
+
+- name: Include yaourt.yml
+  include_tasks: yaourt.yml
+  tags: [yaourt]
+  when: ansible_os_family == "Archlinux"
+
+- name: Include tasks from braille.yml
+  include_tasks: braille.yml
+  tags: [braille]
+
+- name: Include fenrir.yml
+  include_tasks: fenrir.yml
+  tags: [fenrir]
+  when: ansible_os_family == "Archlinux"
+
+

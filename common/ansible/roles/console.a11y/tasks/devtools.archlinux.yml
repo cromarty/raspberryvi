@@ -1,0 +1,21 @@
+---
+
+#
+# The Ansible pacman module cannot handle packages which are aliases of 
+# others. It fails because of the way it tests to see if the package is 
+# already installed.
+#
+# Because in the base-devel group package there is pkg-config, and 
+# pkgconf, which is an alias of pkg-config, if we name base-devel 
+# specifically the pacman module will fail.
+#
+# https://github.com/ansible/ansible/issues/24110
+#
+
+    - name: Install base-devel one package at a time
+      pacman:
+        name: autoconf,automake,binutils,bison,fakeroot,file,findutils,flex,gawk,gcc,gettext,grep,groff,gzip,libtool,m4,make,pacman,patch,pkg-config,sed,sudo,systemd,texinfo,util-linux,which
+        state: latest
+        update_cache: yes
+      when: ansible_os_family == "Archlinux"
+
