@@ -1,0 +1,154 @@
+#!/bin/bash
+
+. rpi-image-tool.lib
+
+
+usage() {
+	echo "usage message"
+}
+
+(( EUID == 0 )) || { echo "Script must be run as root" ; exit 1 ; }
+
+WORKDIR=.
+cleanup=0
+expandscripts=0
+
+HOSTNAME=alarmpi
+
+BLOCKCOUNT=1998
+BLOCKSIZE=1M
+SPLIT=96
+
+while getopts ':678CH:eoc:hs:w:z:' flag ; do
+	case $flag in
+	h)
+		usage
+		exit 0
+	;;
+	C)
+		cleanup=1
+	;;
+	H)
+		HOSTNAME="${OPTARG}"
+	;;
+	e)
+		expandscripts=1
+	;;
+	6)
+		ARMV=armv6
+	;;
+	7)
+		ARMV=armv7
+	;;
+		8)
+		ARMV=armv8
+	;;
+	c)
+		BLOCKCOUNT="${OPTARG}"
+		validate_blockcount ${BLOCKCOUNT}
+	;;
+	s)
+		SPLIT="${OPTARG}"
+		validate_split ${SPLIT}
+	;;
+	w)
+		WORKDIR="${OPTARG}"
+	;;
+	z)
+		BLOCKSIZE="${OPTARG}"
+		validate_blocksize ${BLOCKSIZE}
+	;;
+	(?)
+echo ${flag}
+		echo $(gettext "Invalid option") >&2
+		echo >&2
+		usage
+		exit 1
+	;;
+	:)
+		echo $(eval_gettext "Option - \$OPTARG requires an argument.") >&2
+		echo >&2
+		usage
+		exit 1
+	;;
+	esac
+done
+
+case ${ARMV} in
+	armv6|armv7|armv8)
+		echo "Creating an ${ARMV} image file"
+	;;
+	*)
+		usage
+		exit 1
+	;;
+esac
+
+
+# Image file name. Will
+# include the date
+IMG=ArchLinuxARM-$(date +%F | sed 's:-::g').${ARMV}.img
+
+
+# mount points of file-systems created in the .IMG file
+# sub-directories of working dir will be created with these names
+BOOTMP="${WORKDIR}/boot"
+ROOTMP="${WORKDIR}/root"
+
+set -e
+
+rpi-image-tool -N "${IMG}" -c "${BLOCKCOUNT}" \
+	-z "${BLOCKSIZE}" -s "${SPLIT}" -w "${WORKDIR}"
+
+
+echo 'Downloading the latest Arch...'
+case ${ARMV} in
+	armv6)
+		wget -q http://archlinuxarm.org/os/ArchLinuxARM-rpi-latest.tar.gz -O "${WORKDIR}/arch-latest.tar.gz" 
+	;;
+	armv7)
+		wget -q http://archlinuxarm.org/os/ArchLinuxARM-rpi-2-latest.tar.gz -O "${WORKDIR}/arch-latest.tar.gz"
+	;;
+	armv8)
+		wget -q http://archlinuxarm.org/os/ArchLinuxARM-rpi-3-latest.tar.gz -O "${WORKDIR}/arch-latest.tar.gz"
+	;;
+		*)
+		echo 'Incorrect value for ARMV'
+		exit 1
+esac
+
+echo 'Extracting the filesystems...'
+bsdtar -zxvf "${WORKDIR}/arch-latest.tar.gz" -C "${ROOTMP}"
+
+# move the boot stuff into the boot partition
+echo 'Move the boot files into the boot partition...'
+mv ${ROOTMP}/boot/* ${BOOTMP}
+
+# write the chosen hostname into /etc/hostname
+echo 'Writing the host name...'
+echo "${HOSTNAME}" > "${ROOTMP}/etc/hostname"
+
+if (( expandscripts )) ; then
+	echo "Installing expand scripts to /usr/lib/raspi-config..."
+	install -d ${ROOTMP}/usr/lib/raspi-config
+	install -m0755 -t ${ROOTMP}/usr/lib/raspi-config files/usr/lib/raspi-config/*.sh
+	install -T files/boot/cmdline.txt.resize ${BOOTMP}/cmdline.txt
+else
+	echo "Not installing expand scripts to /usr/lib/raspi-config"
+	install -T files/boot/cmdline.txt ${BOOTMP}/cmdline.txt
+fi
+
+echo "Installing /boot/config.txt..."
+install -T files/boot/config.txt ${BOOTMP}/config.txt
+
+
+sync
+
+if (( cleanup )) ; then
+	rpi-image-tool -C "${WORKDIR}"
+	rm -rf "${WORKDIR}"
+fi
+
+
+exit 0
+
