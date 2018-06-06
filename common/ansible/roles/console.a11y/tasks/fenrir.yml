@@ -1,0 +1,14 @@
+---
+
+- hosts: all
+  become: yes
+  gather_facts: yes
+  tasks:
+    - name: Install Fenrir dependencies
+      pacman:
+        name: espeak,speech-dispatcher,xclip,python-enchant,python-daemonize,python-pyudev,python-dbus,python-evdev,python-pyte,sox,gstreamer,icu,liblouis
+        state: latest
+        update_cache: yes
+      tags: [fenrir]
+      when: ansible_os_family == "Archlinux"
+
