@@ -1,0 +1,7 @@
+---
+# defaults file for alarmpi.console.a11y
+
+aur_user: aur_manager
+skip_aur_user: no
+
+
