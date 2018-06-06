@@ -1,0 +1,364 @@
+<!-- 
+.. title: Arduino Hacking from the Command Line
+.. slug: arduino-cli
+.. date: 2017-01-29 20:42:44 UTC
+.. tags: arduino command-line cli
+.. category: Arduino
+.. link: 
+.. description: How to write, compile, and upload Arduino programs from the command-line
+.. type: text
+-->
+
+## Table of Contents
+{:.no_toc}
+
+* toc
+{:toc}
+
+## Introduction
+
+In this tutorial I'm going to show you how to write Arduino programs and compile and upload them to 
+an Arduino from the command-line, avoiding the inaccessible Arduino IDE.
+
+A lot of the text below was written for Hacker Public Radio podcasts which I never finished and 
+posted, so there is stuff which is obvious to the readers of the raspberryvi email list and Web 
+site.  Forgive me for not completely re-writing the text.
+
+## Using Arduino-mk
+
+The default development IDE for Arduino is no doubt very powerful, but I
+prefer to use the command-line.  The reasons for this are several:
+
+* Most compelling is the fact that I am blind and the Arduino IDE is totally inaccessible.
+* I am a command-line junkie, having started hacking when the command-line was all there was.
+* Using the AVR version of the gcc tool-chain in the usual gcc way makes me feel closer to the hardware.
+* The graphical tools use the same tool-chain anyway
+
+From this point onwards I am bored with typing 'command-line' so I will abbreviate it to 'cli'.
+
+In this tutorial I am going to describe installing the core Arduino tools on a
+Debian Linux machine, and how to use the 'Arduino-mk' tool to hack stuff at
+the cli.  Adjust the commands below for your package-manager and package
+names if you aren't using Debian.
+
+## Installing the Tools
+
+First we are going to need to install the core Arduino development tools.
+
+You will need the 'build-essential' package that includes all the Gnu binutils
+including make etc.
+
+You may already have this if you are a coder:
+
+	$ sudo apt-get install build-essential
+
+Now install the Arduino stuff:
+
+	$ sudo apt-get install arduino arduino-core arduino-mk
+
+Those three packages will pull in everything we need:
+
+* GUI IDE and the needed Java run-time.
+* Core Arduino libraries etc., and the AVR tool-chain.
+* Arduino-mk, our first cli tool.
+
+## What is Arduino-mk?
+
+Arduino-mk is a generic Makefile which conforms to the Gnu make syntax and
+which we can include into any Makefile we construct to build our code from the cli.
+
+## Hello World, but with no Display
+
+It's usual for any first project written in a language we are learning
+to be a 'Hello World!' project.  Typically a program that does nothing
+but print 'Hello World!' to the screen and exit, or wait for an exiting
+button-click.
+
+But we don't have a screen on the Arduino. So we are going to say a virtual
+'Hello World!' over and over again by making an LED blink on and off in perpetuum, or at least 'til we pull the plug.
+
+It is standard on an Arduino for there to be an on-board LED attached to pin
+13, and by pulsing this pin we can make the LED blink.
+
+Because I can't see and because this is an audio medium, I'm also going
+to connect a small 3 volt piezo-electric buzzer to pin 13
+so we can hear that it is working.
+
+In Arduino world, a project is usually called a 'sketch'.  I can't help finding
+this a little patronising, but we will stick with it for the moment.
+
+An Arduino sketch, or source file has the extension .ino.  The Arduino tools
+will convert the code into C++ before it is compiled.
+
+The .ino code looks a lot like vanilla C.
+
+To set up our project we follow these steps:
+
+## 1. Create a directory for it. 
+
+the build process will yield two files which have the same name as the
+directory and the extensions .elf and .hex.
+
+So, first we make our directory and cd to it:
+
+	$ mkdir blink1
+	$ cd blink1
+
+And here is the source listing for blink.ino:
+
+	#define LED_PIN 13
+	
+	void setup()
+	{
+		pinMode(LED_PIN, OUTPUT);
+	}
+	
+	void loop()
+	{
+		digitalWrite(LED_PIN, HIGH);
+		delay(100);
+		digitalWrite(LED_PIN, LOW);
+		delay(900);
+	}
+
+You may notice there are two functions; setup() and loop().  These two functions
+always exist in an Arduino sketch.
+
+The setup() function is called once at the beginning of execution, and then the
+loop() function does just what it says on the tin, it loops until power-down.
+
+But I can't see where either of these functions are called from...
+
+That's because the build process will add a minimal main() function for us which calls first the setup() function and then the loop() function.
+
+What this code does is as follows:
+
+1. Defines a constant called LED_PIN with a value of 13
+2. In the setup() function initialises pin 13 as an output
+3. In the loop() function:
+4. Set pin 13 high (LED on)
+5. Wait 100 milliseconds
+6. Set pin 13 low (LED off)
+7. Wait 900 milliseconds
+8. Go to 4
+
+## 2. The Makefile
+
+Now we will write a Makefile with which we can compile and ultimately upload
+this program.  Here is the source of the Makefile:
+
+	ARDUINO_DIR  = /usr/share/arduino
+	#ARDUINO_LIBS = Ethernet Ethernet/utility SPI
+	BOARD_TAG    = uno
+	ARDUINO_PORT = /dev/ttyACM0
+
+	include /usr/share/arduino/Arduino.mk
+
+Each of these directives should be self-explanatory.  I have commented out
+the ARDUINO_LIBS line because our simple blink project does not use any libs
+but I have left it in to illustrate where to name extra libs.
+
+The BOARD_TAG directive is set to 'uno' because that is the type of hardware we are using.
+
+The crucial bit is the include line at the bottom.  This includes the generic
+Makefile which was installed when we selected the arduino-mk package for
+installation.
+
+## 3. Build
+
+Now we can build this project with:
+
+	make
+
+You will see a warning fly past about depends.mk not existing.  This file will
+be created on the first compile.
+
+If this all works there will now be a sub-directory called 'build-cli', in which there are a whole bunch of files.
+
+There are loads of *.o files, including a lot which bear no resemblance to
+any source you created.  These are standard library files which have been
+compiled and which are linked into the result.
+
+The files which are crucial to us now are:
+
+* blink1.elf
+* blink1.hex
+
+Note that even if your source file was called blink.ino, these two files
+will be named the same as the directory in which we are working.
+
+The .hex file is an ASCII file which contains a dump of the op codes
+written into the .elf file (I think).
+
+If you now use the Linux 'file' command to inspect blink1.elf, you get this result:
+
+	blink1.elf: ELF 32-bit LSB executable, Atmel AVR 8-bit, version 1 (SYSV), statically linked, not stripped
+
+As you can see, this is an Atmel 8-bit executable, not a Linux executable.
+
+The blink.hex file is ASCII but it is the values in this file which get
+written into the programmable chip on the Arduino board.
+
+## 4. Upload
+
+To upload the compiled code to the Arduino:
+
+	$ sudo make upload
+
+We need to use sudo for this to get permissions to the serial device.
+
+Obviously the Arduino needs to be connected to your Linux machine via USB.  The
+USB port will also provide power.
+
+When you connect the Arduino to your machine, check the allocation of the
+port device like this:
+
+	$ dmesg tail
+
+You should see which device has been allocated.  You could also:
+
+	$ ls /dev/ttyACM*
+
+I think the port will be different on a Mac.  And of course if you have
+more than one Arduino plugged in, the ports will be numbered; /dev/ttyACM0, /dev/ttyACM1 etc.
+
+Once the upload is complete, press the reset switch in the corner of theUno
+board and the LED will, if all was well, and with a following wind, begin to flash.
+
+## A Final Note
+
+What we have just done is 'cross-compiled' an executable.  That is we have
+compiled some code on one platform, for running on another platform, or 'flavour' of processor.
+
+## Using Ino
+
+
+In the first part of this tutorial we installed the core Arduino development
+tools and the first of the tools we were using for working at
+the cli.
+
+Now we are going to install another tool; ino.
+
+## Recap
+
+To recap, in the last part we did these installs:
+
+	$ sudo apt-get install build-essential
+	$ sudo apt-get install arduino arduino-core arduino-mk
+
+Now we need some other bits and pieces, some of which, for example
+Python2.7, you may already have:
+
+	$ sudo apt-get install python2.7
+	$ sudo apt-get install python-pip
+	$ sudo pip install ino
+
+## What is ino?
+
+ino is a tool written in Python.  While it ultimately uses the same AVR tools
+that are used by the Arduino IDE, and by the Arduino-mk tool we used last time,
+it offers a different way of achieving the same results.
+
+Where ino wins over other cli tools is that it hides the messy bits of
+project authoring and building from the user.
+
+Personally, I like seeing all the messy stuff.
+
+ino also includes some example and skeleton projects.
+
+The source code for 'blink', which we built in the first part of this tutorial using Arduino-mk
+was actually pulled from one of the ino example projects.
+
+So, now let's use ino to create and build the same project.
+
+As I did last time, I am going to connect a small piezo-electric
+buzzer to pin 13 so that we can hear
+that it is working.
+
+Follow these steps:
+
+1. Create a directory for it.
+
+$ mkdir blink2
+	$ cd blink2
+
+Now we use ino to initialise the blink project from one of the ino examples:
+
+	$ ino init -t blink
+
+This will create two sub-directories in our project directory:
+
+	lib/
+	src/
+
+In the src directory there is one source file, or 'sketch', called:
+
+	sketch.ino
+
+If you looked at the source code you would see it is exactly the same as the
+blink.ino source file we created for the blink1 project in the first part of this tutorial.
+
+In the lib directory there is one file, called .holder, which appears to be empty.
+
+We are not using any libraries other than the defaults in this so there
+will be nothing in lib.
+
+Now we build the project:
+
+	$ ino build
+
+This will create a directory called .build (see what I mean about ino hiding
+the good stuff?).
+
+In .build there are two things now:
+
+	environment.pickle
+	uno/
+
+The .pickle file is a Python mechanism for taking a snap-shot of the build
+environment at build time.
+
+The directory uno, is where you will find the meat.
+
+Note that the uno directory is only called uno because it is an Arduino Uno for
+which we are developing, and because it is the default board type.
+
+If we chose to use a different Arduino version, this directory would be named
+the same way as the board type.
+
+Looking in the uno directory we see a bunch of stuff:
+
+	arduino/
+	firmware.elf*
+	firmware.hex
+	Makefile
+	Makefile.deps
+	Makefile.sketch
+	src/
+
+If you looked in arduino/, you would see files which should be familiar to
+you if you followed the first part of this tutorial, when we built blink using
+Arduino-mk.  There are a whole load of object files, some .d dependancy files and other things.
+
+Now in this directory, we also see:
+
+	firmware.elf
+	firmware.hex
+
+These two files correspond to the blink1.elf and blink1.hex files which were created by
+Arduino-mk last time.
+
+It is these files which are used in the upload, when we issue this command,
+in our original project directory:
+
+	$ sudo ino upload
+
+Hang on a second...some of the messages that flew past looked suspiciously
+similar, or even identical to what happened when we used our Arduino-mk Makefile to
+upload blink1 in the first part of this tutorial.
+
+Well yes, all that both Arduino-mk and ino are doing in both parts of this tutorial is to call the 
+same Arduino AVR tools.
+
+Again, press that reset button after the upload and the LED on pin 13 will start to blink.
+

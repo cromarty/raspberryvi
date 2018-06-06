@@ -1,0 +1,9 @@
+
+# Centreing Commands #
+
+| Key-sequence  | M-x command  | Function  |
+|:-:|:-|:-|
+| M-s | center-line      | Center the current line                     |
+|None | center-paragraph | Center the paragraph that the cursor is on. |
+|None | center-region    | Center the currently defined region.        |
+

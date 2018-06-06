@@ -1,0 +1,16 @@
+
+# Macro Commands #
+
+| Key-sequence  | M-x command  | Function  |
+|:-:|:-|:-|
+| C-x (            | start-kbd-macro                    | Start a new macro definition.          |
+| C-x )            | end-kbd-macro                      | End the current macro definition.      |
+| C-x e            | call-last-kbd-macro                | Execute the last defined macro.        |
+| M-(number) C-x e | Do that last macro (number times). |                                        |
+| C-u C-x (        |                                    | Execute last macro and add to it.      |
+|None              | name-last-kbd-macro                | Name the last macro before saving it.  |
+|None              | insert-last-keyboard-macro         | Insert the macro you made into a file. |
+|None              | load-file                          | Load a file with macros in it.         |
+| C-x q            | kbd-macro-query                    | Insert a query into a keyboard macro.  |
+| M-C-c            | exit-recursive-edit                | Get the hell out of a recursive edit.  |
+

@@ -1,0 +1,273 @@
+<!-- 
+.. title: Stuttering text-to-speech and how I Solved it
+.. slug: stuttering
+.. date: 2016-12-30 16:59:43 UTC
+.. tags: Stuttering, TTS, Raspberry Pi
+.. category: Articles
+.. link: 
+.. description: Solving the stuttering eSpeak TTS in the Raspberry Pi Console
+.. type: text
+-->
+
+## Table of Contents
+{:.no_toc}
+
+* toc
+{:toc}
+
+## Introduction
+
+Currently the best solution for text-to-speech on the [Raspberry Pi][rpi] is the `eSpeak` software 
+speech synthesiser.
+
+The `speech-dispatcher` program can use other software speech synthesisers, but historically we have 
+only used the `speakup` screen-reader so far and the best way to connect `speakup` to a 
+text-to-speech engine is with the `espeakup` program, not using `speech-dispatcher`.
+
+This page does not go into the intense debate that rages about the
+pros and cons of `eSpeak`.  Some claim it sounds horrible.  But because
+of it's small size and huge language support it remains the best
+option.
+
+## History
+
+All was well with `eSpeak` text-to-speech on the [Raspberry Pi][rpi] until approximately April 2013.  
+At about that time, a change was made to the `ALSA` driver to introduce real DMA.
+
+Unfortunately, the above change broke `eSpeak` tts.  After that time, it would stutter very, very 
+badly within a few seconds of beginning to speak.
+
+If that was not bad enough, a _kernel oops_ regularly occurs when
+using the `ALSA` driver.
+
+I established that this was what was happening when the console froze by
+connecting the Pi to another Linux machine via the console which runs
+on the `UART` available on the `GPIO` bus.  Using this it is possible to see what happens when the 
+`kernel oops` occurs and the debug information is sent out of the `UART`.
+
+This is caused by the _Video Core Hardware Interface Queue_ (VCHIQ)
+process passing the kernel a null pointer.
+
+The `VCHIQ` process is responsible for queueing audio and video into
+the _Graphics Processing Unit_ (GPU).
+
+In efforts to get around this I tried a lot of things:
+
+* Using `YASR` instead of `speakup` in the console
+* Changing the _niceness_ and the priority of the `espeakup` program
+* Using `speech-dispatcher` instead of `espeakup` to connect `speakup`
+to `TTS`
+* Many other tweaks
+
+Nothing worked.
+
+## Solution
+
+I think it was late in 2013 I learned about the `OpenMAX` library and
+specifically the `Integration Layer` library.
+
+`OpenMAX`, hereinafter referred to as `OMX`, is a software system that
+seeks to standardise the interface to graphics and audio hardware on
+different platforms.
+
+I believe it was created to make graphics and sound programming easier for the multitude of mobile
+devices and smart phones now in use.
+
+In a standard _Raspbian_ Raspberry Pi, there is a directory:
+
+	/opt/vc
+
+This directory contains libraries and other code that relates to the
+`video core`, hence `VC`.
+
+Note at this point that the term `video core` should not be mistaken
+for something that only refers to video, for the `GPU` also renders
+sound.
+
+In the above directory I found examples of code that renders sound on
+the GPU.
+
+So I set about learning how to interface to the `OMX Integration Layer
+Client`.
+
+## `eSpeak` Specifics
+
+One of the great things about `eSpeak` is it's ability to be used in a
+mode that will return `pulse-code modulated` (PCM) audio data to the
+calling program.
+
+In this mode, a fragment of text is passed to `eSpeak` to be rendered
+into synthetic speech, and the converted `PCM` is returned in a
+`callback` function.
+
+The `PCM` data can then be used however it is required, for example it can be written to a `.wav` 
+file, some other file, or processed in some way and then passed to some mechanism to be played over 
+the output device.
+
+So, what I had to do was:
+
+1. Write code that would receive `PCM` data and queue it into the
+`GPU` via the `OMX Integration Layer Client`.
+2. Adapt `espeakup` to call `eSpeak` in it's callback mode and link my
+`OMXILC` library with it.
+
+So, I wrote the library.  It took a long time and an even longer time
+to debug.
+
+It taught me a lot about _concurrency_ and the so called _producer/consumer_ problem, in which
+different threads of execution either _produce_ data, or _consume_ it.
+
+_Concurrency_ can be defined as the need for different threads of execution, or even different processes, to have access
+to a common resource without "treading on each other's toes".
+
+Then I forked the code of `espeakup` and created `piespeakup`.
+
+`piespeakup` contains a `callback` function which then queues the `text-to-speech` audio returned 
+from `eSpeak` into the `GPU`.
+
+The `OMX` library I wrote contains a circular buffer which receives this data, which is constantly 
+filled and drained in the classic `producer/consumer` sequence.  `piespeakup` being the _producer_ 
+of `PCM` audio, and the `OMX` library passing the `TTS` audio to `VCHIQ` as the consumer.
+
+Result, no involvement from the broken `ALSA` driver.
+
+One of the hairiest problems I had to solve was one of latency.  The time taken for the `espeak` 
+program to render text into `PCM` data and return it to the calling program, and how this impacts 
+on, in particular, the quality of small chunks of speech, at the beginning and end of each 
+utterance.  For a longertime I had it working but the speech was very severely _clipped_ at the end 
+of each utterance.
+
+It is not commonly understood that `espeak` renders text passed to it in often very small portions rather than as, for example, a whole sentence in one go.
+
+## Hacker Public Radio Podcast
+
+I did a podcast for [Hacker Public Radio][hpr] to demonstrate the fixed
+TTS audio.  [Click here to go to the HPR page and this podcast][podcast].
+
+## Installing Both Components
+
+First you need to install `espeak`. If you are using Raspbian, that distro splits the `espeak` 
+program from the library and you need to install it like this:
+
+	$ sudo apt-get install libespeak-dev
+
+If you are using Arch:
+
+	$ sudo pacman -S espeak
+ 
+Follow these instructions to install the two components which will give stutter-free console speech 
+with `SpeakUp`.
+
+In the instructions below I have given the version numbers of both components as `1.0.0`, of course 
+it may change, check the Web site before you start.
+
+## The OMX Library
+
+This has been tested on both _Raspbian_ and _Arch Linux_.
+
+Follow these instructions, in each line the dollar sign represents the prompt. And note that 
+`Downloads` starts with a capital 'D':
+
+	$ wget http://www.raspberryvi.org/Downloads/ilctts-1.0.0.tar.gz
+	$ tar zxf ilctts-1.0.0.tar.gz
+	$ cd ilctts-1.0.0
+	$ ./configure
+	$ make
+	$ sudo make install
+	$ sudo ldconfig
+
+Now, to load the `SpeakUp` kernel modules either reboot before installing the next component or:
+
+	$ sudo modprobe speakup_soft
+
+## Installing `piespeakup`
+
+Follow these steps. Again the dollar sign is the prompt:
+
+	$ wget http://www.raspberryvi.org/Downloads/piespeakup-1.0.0.tar.gz
+		$ tar zxf piespeakup-1.0.0.tar.gz
+			$ cd piespeakup-1.0.0
+				$ ./configure
+					$ make
+						$ sudo make install
+
+Note that in both instances of `wget` above the word _Downloads_ has a
+capital 'D'.
+
+						At this point before we enable and start the 
+						`piespeakup` service we have to make sure the 
+						`speakup` kernel modules are loaded or the service 
+						won't start.
+						
+						If you either rebooted after installing the OMX 
+						library or manually instaled the kernel modules they 
+						will be there.
+						
+						Check like this:
+						
+							$ lsmod | grep speakup
+							
+							You should see two modules, `speakup_soft` 
+							and it's dependancy `speakup`.
+							
+							Now enable `piespeakup`:
+							
+								$ sudo systemctl enable piespeakup
+								
+								And start it:
+								
+	$ sudo systemctl start piespeakup
+
+## Configuration
+
+There is a file at:
+
+	/etc/systemd/system/piespeakup.conf
+
+In this file is where we can change from the analogue audio jack (3.5mm socket) to HDMI.
+
+The file contains the line:
+
+	ExecStart=/usr/local/piespeakup --device=local
+
+Change it to:
+
+	ExecStart=/usr/local/piespeakup --device=hdmi
+
+To switch to HDMI, after which you will need to restart the `piespeakup` service.
+
+DO NOT remove the line above this which reads:
+
+	ExecStart=
+
+Because the original `ExecStart` directive needs to be blanked before it is reset.
+I will add more configuration options at a later date.
+
+When both the OMX library and `piespeakup` are installed, and when the
+`speakup` kernel modules are loaded correctly, the Pi should come up
+speaking when it is rebooted.
+
+It is interesting to note that this console audio does NOT use the
+ALSA driver so it does not suffer from the classic problem for
+accessibility on the Linux desktop, which is that when the user logs
+into the desktop and `speech-dispatcher` is configured to use
+`pulseaudio` console audio is silenced because of some configuration
+of `pulseaudio`, a solution for which I have never seen.
+
+Note also that there is currently a bug in the `speech-dispatcher`
+espeak module; `sd_espeak` which causes it to crash regularly, which
+makes it impossible to reliably use `speech-dispatcher` configured for
+ALSA.
+
+This does not matter to use currently since the `sd_espeak` module
+will also stutter very badly. I need to write an OMX version os the
+`sd_espeak` module or an OMX audio driver for `speech-dispatcher`.
+
+
+[rpi]: http://www.raspberrypi.org/
+[podcast]: http://hackerpublicradio.org/eps.php?id=1649
+[hpr]: http://hackerpublicradio.org/
+
+
+<!-- Reference type links should go below this comment container -->
+

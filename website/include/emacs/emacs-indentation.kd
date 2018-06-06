@@ -1,0 +1,12 @@
+
+# Indentation Commands #
+
+| Key-sequence  | M-x command  | Function  |
+|:-:|:-|:-|
+| C-x   | set-fill-prefix     | Prepend each line in paragraph with characters from beginning of the line up to the current cursor column.  cancel by doing this in column 1. |
+| M-C-\ | indent-region       | Indent a region to match the first line in region.                                                                                            |
+| M-m   | back-to-indentation | Move the cursor to first character in line.                                                                                                   |
+| M-C-o | split-line          | Split line at cursor into two lines...  weird.                                                                                                |
+
+
+

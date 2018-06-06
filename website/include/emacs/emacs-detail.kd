@@ -1,0 +1,18 @@
+
+# Detail Information Commands #
+
+| Key-sequence  | M-x command  | Function  |
+|:-:|:-|:-|
+| C-h a | command-apropos      | What commands work like this...?                          |
+|None   | apropos              | What functions and variables work like this...?           |
+| C-h c | describe-key-briefly | What command does this key sequence do?                   |
+| C-h b | describe-bindings    | What are the key bindings for this buffer?                |
+| C-h k | describe-key         | What command does this sequence do, and tell me about it. |
+| C-h l | view-lossage         | What are the last 100 characters typed?                   |
+| C-h w | where-is             | What is the key binding for this?                         |
+| C-h f | describe-function    | What does this function do?                               |
+| C-h v | describe-variable    | What is this variable?                                    |
+| C-h m | describe-mode        | Tell me about this mode.                                  |
+| C-h s | describe-syntax      | What is the syntax table for this buffer?                 |
+
+

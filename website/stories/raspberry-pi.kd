@@ -1,0 +1,49 @@
+<!-- 
+.. title: Raspberry Pi Guides, Articles, Tutorials and other useful stuff 
+.. slug: raspberry-pi
+.. date: 2015-04-15 11:22:00 UTC
+.. tags: raspberry pi, linux, single-board computer, sbc
+.. link: 
+.. description: Useful Raspberry Pi guides, articles and tutorials for the visually impaired
+.. type: text
+-->
+
+
+## Quick-start Guides
+
+* [Raspberry Pi Board Description and Quick Start][rpistarted]
+* [Writing a Raspberry Pi OS Image to an SD Card on Linux][dd]
+* [Writing an SD Card on Windows with WinFlashTool][winf]
+
+## Useful Articles
+
+* [Solving the Stuttering `eSpeak` TTS][stuttering]
+
+## Hardware and configuration hacks
+
+* [Using a serial console cable][console]
+* [Upgrading the gcc and g++ Compilers for ARMV7 (Pi2)][armv7hack]
+
+## Distro Configurations
+
+* [Installing the Mate Desktop on Raspbian Lite][raspbian-lite-mate]
+* [Installing a LAMP-stack on Raspbian][lamp]
+
+
+
+
+
+[rpistarted]: /stories/raspberry-pi-getting-started.html
+[gpio]: /stories/raspberry-pi-gpio-bus-pinouts.html
+[dd]: /stories/writing-a-raspberry-pi-os-image-to-an-sd-card-on-linux.html
+[winf]: /stories/writing-an-sd-card-on-windows-with-winflashtool.html
+[console]: /stories/console-cable.html
+[armv7hack]: /stories/upgrade-gcc-armv7.html
+
+
+
+
+[stuttering]: /stories/stuttering.html
+[raspbian-lite-mate]: /stories/raspbian-lite-mate.html
+[lamp]: /stories/raspbian-lamp.html
+

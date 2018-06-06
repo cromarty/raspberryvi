@@ -1,0 +1,244 @@
+<!-- 
+.. title: Emacs Key-bindings
+.. slug: emacs
+.. date: 2017-01-18 16:35:24 UTC
+.. tags: emacs, editor, reference
+.. category: Reference
+.. link: 
+.. description: Emacs Key-bindings Quick Reference
+.. type: text
+-->
+
+I have tried to put the tables in this page in roughly the order in
+which you are likely to need them.
+
+Try to get in the habit of using the keyboard commands for cursor
+movement and deletion of characters, words and lines as this means you
+can work faster by not groping for cursor-movement keys. The less you have to move your hands from 
+the main keys to perform tasks the faster you will work.
+
+Where `M-x` is shown in the left-hand column, after `M-x` type the command shown in the centre column into the mini buffer.
+
+## Cursor Movement Commands ##
+
+| Key-sequence  | M-x Command  | Function  |
+|:-:|:-|:-|
+| C-f          | forward-char        | Move cursor forward one character                                            |
+| C-b          | backward-char       | Move cursor backward one character                                           |
+| C-p          | previous-line       | Move up one line                                                             |
+| C-n          | next-line           | Move down one line                                                           |
+| M-f          | forward-word        | Move to next word                                                            |
+| M-b          | backward-word       | Move to previous word                                                        |
+| C-a          | beginning-of-line   | Move to beginning of line                                                    |
+| C-e          | end-of-line         | Move to end of line                                                          |
+| M-a          | backward-sentence   | Move back one sentence                                                       |
+| C-v          | scroll-up           | Scroll up one screen                                                         |
+| M-v          | scroll-down         | Scroll down one screen                                                       |
+| C-x [        | backward-page       | Go back one page                                                             |
+| C-x ]        | forward-page        | Go forward one page                                                          |
+| M->          | end-of-buffer       | Move to end of buffer                                                        |
+| M-<          | beginning-of-buffer | Move to beginning of buffer                                                  |
+| C-l          | recenter            | Redraw the screen with the current line in the vertical centre of the screen |
+| M-(a number) |                     | Do next command (a number) of times                                          |
+|M-x|goto-line|Go to line number entered after the goto-line number has been entered in the mini buffer|
+
+## Text Deletion Commands ##
+
+| Key-sequence  | M-x command  | Function  |
+|:-:|:-|:-|
+| Del     | backward-delete-char    | Delete the previous character.                      |
+| C-d     | delete-char             | Delete the character under the cursor.              |
+| M-d || kill-word  | Delete the next word.  |
+| M-Del   | backward-kill-word      | Delete the previous word.                           |
+| M dash C-k  |None  | Kill from the cursor to the beginning of the line.  |
+| C-k     | kill-line               | Delete from the cursor to the end of line.          |
+| M-k     | kill-sentence           | Delete the sentence the cursor is in.               |
+| C-x Del | backward-kill-sentence  | Delete the previous sentence.                       |
+| C-y     | yank                    | Insert from kill-ring                               |
+| C-w     | kill-region             | Delete a marked region.                             |
+|M-x     | backward-kill-paragraph | Delete the previous paragraph.                      |
+|M-x     | kill-paragraph          | Delete from the cursor to the end of the paragraph. |
+
+
+
+## Stop/Undo Commands ##
+
+| Key-sequence  | M-x command  | Function  |
+|:-:|:-|:-|
+| C-g   | keyboard-quit   | Stop current command Now!        |
+| C-x u | advertised-undo | Undo the last edit (do it often) |
+
+
+
+## File Related Commands ##
+
+| Key-sequence  | M-x Command  | Function  |
+|:-:|:-|:-|
+|:-:|:-|:-|:-|
+| C-x C-f | find-file               | Read a file                                 |
+| C-x C-v | find-alternate-file     | Read a different file                      |
+| C-x i   | insert-file             | Insert a file at the cursors position      |
+| C-x C-s | save-buffer             | Save the current buffer                    |
+| C-x C-w | write-file              | Write the contents of the buffer to a file |
+| C-x C-c | save-buffers-kill-emacs | Save all open buffers and get out of emacs |
+| C-z     | suspend-emacs           | Suspend emacs                              |
+| M-x  | revert-buffer  | Revert buffer to saved state  |
+
+## Buffer Related Commands ##
+
+| Key-sequence  | M-x command  | Function  |
+|:-:|:-|:-|
+| C-x b   | switch-to-buffer  | Move to the specified buffer.                    |
+| C-x C-b | list-buffers      | Display the list of currently active buffers.    |
+| C-x k   | kill-buffer       | Kill the current buffer                          |
+|M-x     | kill-some-buffers | Ask about deleting each buffer currently active. |
+|M-x     | rename-buffer     | Rename the current buffer to something else.     |
+| C-x s   | save-some-buffers | Ask whether to save each modified buffer         |
+
+
+
+
+## Incremental Search Commands ##
+
+| Key-sequence  | M-x command  | Function  |
+|:-:|:-|:-|
+| C-s  | isearch-forward  | Start an incremental search forward.                   |
+| C-r  | isearch-backward | Starts an incremental search in the reverse direction. |
+| Meta |                  | Stop a successful search                               |
+| C-g  | keyboard-quit    | Stop searching and return to the starting point.       |
+| Del  |                  | Delete an incorrect character while searching          |
+
+
+## Shell Related Commands ##
+
+| Key-sequence | M-x command |  Function |
+|:-:|:-|:-|
+|M-x| shell  | Start a shell.  |
+| C-c C-c  | interrupt-shell-subjob  | Terminate the current job in a shell.  |
+| C-c C-d  | send-shell-eof  | Send the EOF character (Ctrl-d)  |
+| C-c C-u  | kill-shell-input  | Erase the current line.  |
+| C-c C-w  | backward-kill-word  | Erase the previous word.  |
+| C-c C-z  | stop-shell-subjob  | Suspend the current shell job.  |
+
+## Region Related Commands ##
+
+| Key-sequence  | M-x command  | Function  |
+|:-:|:-|:-|
+| C-@     | set-mark                | Mark the beginning (or end) of a region.          |
+| C-Space | set-mark                | Mark the beginning (or end) of a region.          |
+| C-x C-p | mark-page               | Mark the current page.                            |
+| C-x C-x | exchange-point-and-make | Exchange the location of the cursor and the mark. |
+| C-x h   | mark-whole-buffer       | Mark the current buffer.                          |
+| M-q     | fill-paragraph          | Reset the paragraph.                              |
+| M-g     | fill-region             | Reformat individual paragraphs with region.       |
+| M-h     | mark-paragraph          | Mark select paragraph.                            |
+
+
+## Abbreviation Mode Commands ##
+
+
+| Key-sequence  | M-x command  | Function  |
+|:-:|:-|:-|
+|M-x     | abbrev-mode               | Enter abbreviation mode.                         |
+| C-x a g  | add-global-abbrev  | Add global abbreviation  |
+| C-x a l  | add-mode-abbrev  | Add abbreviation specific to current major-mode  |
+| C-x a i g   | inverse-add-global-abbrev | Type in a global abbreviation, then its expansion |
+| C-x a i l | inverse-add-mode-abbrev  | Type in an abbreviation specific to the current major-mode, then its expansion  |
+|M-x     | unexpand-abbrev           | Undo the last word abbreviation.                 |
+|M-x     | write-abbrev-file         | Write out the word abbreviation file.            |
+|M-x     | edit-abbrevs              | Edit the current word abbreviations.             |
+|M-x     | list-abbrevs              | View the current word abbreviations.             |
+|M-x     | kill-all-abbrevs          | Kill any abbreviations for this session.         |
+|M-x| define-global-abbrev  | Define global abbreviation.  Enter abbreviation, RETURN, enter expansion, RETURN  |
+|M-x| define-mode-abbrev  | Define abbreviation specific to current major-mode.  Enter abbreviation, ENTER, enter expansion, ENTER  |
+
+
+## Capitalization Commands ##
+
+| Key-sequence  | M-x command  | Function  |
+|:-:|:-|:-|
+| M-c     | capitalize-word  | Capitalize the first letter of the current word. |
+| M-u     | upcase-word      | Make the word all uppercase.                     |
+| M-l     | downcase-word    | Make the word all lowercase.                     |
+| C-x C-l | downcase-region  | Make the region all lowercase.                   |
+| C-x C-u | uppercase-region | Make the region all uppercase.                   |
+
+
+## Centering Commands ##
+
+| Key-sequence  | M-x command  | Function  |
+|:-:|:-|:-|
+| M-s | center-line      | Center the current line                     |
+|M-x | center-paragraph | Center the paragraph that the cursor is on. |
+|M-x | center-region    | Center the currently defined region.        |
+
+
+## Detail Information Commands ##
+
+| Key-sequence  | M-x command  | Function  |
+|:-:|:-|:-|
+| C-h a | command-apropos      | What commands work like this...?                          |
+|M-x   | apropos              | What functions and variables work like this...?           |
+| C-h c | describe-key-briefly | What command does this key sequence do?                   |
+| C-h b | describe-bindings    | What are the key bindings for this buffer?                |
+| C-h k | describe-key         | What command does this sequence do, and tell me about it. |
+| C-h l | view-lossage         | What are the last 100 characters typed?                   |
+| C-h w | where-is             | What is the key binding for this?                         |
+| C-h f | describe-function    | What does this function do?                               |
+| C-h v | describe-variable    | What is this variable?                                    |
+| C-h m | describe-mode        | Tell me about this mode.                                  |
+| C-h s | describe-syntax      | What is the syntax table for this buffer?                 |
+
+
+
+## Indentation Commands ##
+
+| Key-sequence  | M-x command  | Function  |
+|:-:|:-|:-|
+| C-x   | set-fill-prefix     | Prepend each line in paragraph with characters from beginning of the line up to the current cursor column.  cancel by doing this in column 1. |
+| M-C-\ | indent-region       | Indent a region to match the first line in region.                                                                                            |
+| M-m   | back-to-indentation | Move the cursor to first character in line.                                                                                                   |
+| M-C-o | split-line          | Split line at cursor into two lines...  weird.                                                                                                |
+
+
+
+
+## Macro Commands ##
+
+| Key-sequence  | M-x command  | Function  |
+|:-:|:-|:-|
+| C-x (            | start-kbd-macro                    | Start a new macro definition.          |
+| C-x )            | end-kbd-macro                      | End the current macro definition.      |
+| C-x e            | call-last-kbd-macro                | Execute the last defined macro.        |
+| M-(number) C-x e | Do that last macro (number times). |                                        |
+| C-u C-x (        |                                    | Execute last macro and add to it.      |
+|M-x              | name-last-kbd-macro                | Name the last macro before saving it.  |
+|M-x              | insert-last-keyboard-macro         | Insert the macro you made into a file. |
+|M-x              | load-file                          | Load a file with macros in it.         |
+| C-x q            | kbd-macro-query                    | Insert a query into a keyboard macro.  |
+| M-C-c            | exit-recursive-edit                | Get the hell out of a recursive edit.  |
+
+
+## Text Transposition Commands ##
+
+| Key-sequence  | M-x command  | Function  |
+|:-:|:-|:-|
+ |C-t|transpose-chars|Transpose two letters|
+ |M-t|transpose-words|Transpose two words|
+ C-x C-t|transpose-lines|Transpose two lines|
+ |none|transpose-sentences|Transpose two sentences|
+ |none|transpose-paragraphs|Transpose two paragraphs|
+
+
+
+## Window Commands ##
+
+| Key-sequence  | M-x command  | Function  |
+|:-:|:-|:-|
+| C-x 2 | split-window-horizontally | Divide the current window horizontally in two. |
+| C-x 5 | Split-windows-vertically  | Divide the current window vertically in two.   |
+| C-x > | scroll-right              | Scroll the window right.                       |
+| C-x < | scroll-left               | Scroll the window left.                        |
+| C-x 0 | delete-window             | Delete the current window.                     |
+| C-x 1 | delete-other-windows      | Delete all the windows except this one.        |
+

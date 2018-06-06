@@ -1,0 +1,91 @@
+<!-- 
+.. title: Arduino Uno Board Description
+.. slug: arduino-uno-board-description
+.. date: 2017-03-23 10:35:46 UTC
+.. tags: Arduino, Arduino Uno
+.. category: Arduino
+.. link: 
+.. description: Blind-friendly description of the Arduino Uno board
+.. type: text
+-->
+
+
+The below is a description of the Arduino Uno board.
+
+The USB port and the power connector are very obvious. The power
+connector is of the dual-concentric type and the hole into which a
+plug is inserted feels and is circular, although the plastic around it
+is square with slightly rounded corners.
+
+Holding the board with the USB and power connectors on the right edge of the board.
+
+There are two rows of female IDC connectors, both of which are single
+sockets, in other words they differ from the female connectors on a
+Beaglebone in that there are not two rows in one connector and from
+the Pi in that they are female, not a spikey male double-row of pins.
+
+On both rows of IDC female connectors, pin 0 is at the left edge of the board furthest from the power and USB sockets.
+
+Read the following tables from the left edge of the board furthest from the power and USB sockets.
+
+## Top row
+
+|Pin|Function|
+|-:|:-|
+| 0| ADC5|
+| 1| ADC4|
+| 2| ADC3|
+| 3| ADC2|
+| 4| ADC1|
+| 5|  ADC0|
+| 6| V in|
+| 7| GND|
+| 8| GND|
+| 9| 5V|
+| 10| 3.3V|
+| 11| Reset|
+|12| IO Ref|
+| 13| No markings|
+
+
+## Bottom Row
+
+|Pin|Function|
+|-:|:-|
+| 0| RX Input|
+| 1| TX Output|
+| 2| I/O 2|
+| 3| PWM|
+| 4| I/O 4|
+| 5| PWM
+| 6| PWM|
+| 7| I/O 7|
+| 8| I/O 8|
+| 9| PWM|
+| 10| PWM|
+| 11| PWM|
+| 12| I/O 12|
+| 13| I/O 13|
+| 14| GND|
+| 15| aref (ADC reference?)|
+| 16| No markings|
+| 17| No markings|
+
+## Additional notes/questions
+
+* IO ref is presumably I/O reference value
+* 3.3v Max current 50 milliamps
+* ADC from 0 to 5v
+* ADC is ten bit (0 to 1023)
+
+## Connecting serial to serial between Raspberry Pi and Arduino
+
+* TX Arduino to RX Pi via 4k7 resistor
+* TX Pi to RX Arduino via 1k resistor
+
+It is **very important** to remember that the GPIO pins of the
+Raspberry Pi are at a logic level of 3.3 volts and those of the
+Arduino are 5 volts. Damage can and will occur if they are connected
+directly together with no level conversion.
+
+
