@@ -1,0 +1,176 @@
+<!-- 
+.. title: Emacspeak Key-bindings
+.. slug: emacspeak
+.. date: 2017-01-18 16:35:24 UTC
+.. tags: emacspeak, editor, reference
+.. category: Reference
+.. link: 
+.. description: Emacspeak Key-bindings Quick Reference
+.. type: text
+-->
+
+
+# Emacspeak Key-bindings #
+
+Here are the most common Emacspeak key-binding commands you will need. All are prefixed with 
+Control-E as you can find in the left column.
+
+
+| Prefix  | Key Sequence  | Function  |
+|:-:|:-|:-|
+| C-e  | C-@  | emacspeak-speak-current-mark  |
+| C-e  | C-a  | emacspeak-toggle-auditory-icons  |
+| C-e  | C-b  | emacspeak-bookshare  |
+| C-e  | C-c  | emacspeak-clipboard-copy  |
+| C-e  | C-d  | emacspeak-toggle-show-point  |
+| C-e  | TAB  | emacspeak-table-display-table-in-region  |
+| C-e  | C-j  | emacspeak-hide-speak-block-sans-prefix  |
+| C-e  | 	C-l  | emacspeak-speak-line-number  |
+| C-e  | RET  | emacspeak-speak-continuously  |
+| C-e  | C-n  | emacspeak-speak-next-window  |
+| C-e  | C-o  | emacspeak-ocr  |
+| C-e  | C-p  | emacspeak-speak-previous-window  |
+| C-e  | C-q  | emacspeak-toggle-comint-autospeak  |
+| C-e  | C-r  | emacspeak-root  |
+| C-e  | C-s  | tts-restart  |
+| C-e  | C-t  | emacspeak-table-find-file  |
+| C-e  | C-u  | emacspeak-feeds-browse  |
+| C-e  | C-v  | view-mode  |
+| C-e  | C-w  | emacspeak-speak-window-information  |
+| C-e  | C-y  | emacspeak-clipboard-paste  |
+| C-e  | ESC  | Prefix Command  |
+| C-e  | SPACEBAR  | emacspeak-speak-header-line  |
+| C-e  | Bang  | emacspeak-speak-run-shell-command  |
+| C-e  | "  | emacspeak-speak-sexp-interactively  |
+| C-e  | #  | emacspeak-gridtext  |
+| C-e  | %  | emacspeak-speak-current-percentage  |
+| C-e  | '  | emacspeak-pianobar  |
+| C-e  | (  | emacspeak-audio-setup  |
+| C-e  | )  | emacspeak-sounds-select-theme  |
+| C-e  | ,  | emacspeak-speak-browse-buffer  |
+| C-e  | .  | emacspeak-speak-current-field  |
+| C-e  | /  | emacspeak-speak-this-buffer-other-window-display  |
+| C-e  | 0 .. 9  | emacspeak-speak-predefined-window  |
+| C-e  | :  | emacspeak-Meta-player-shuffle  |
+| C-e  | ;  | emacspeak-multimedia  |
+| C-e  | &lt;  | emacspeak-speak-previous-field  |
+| C-e  | =  | emacspeak-speak-current-column  |
+| C-e  | &gt;  | emacspeak-speak-next-field  |
+| C-e  | ?  | emacspeak-websearch-dispatch  |
+| C-e  | @  | emacspeak-speak-at-time  |
+| C-e  | A  | emacspeak-appt-repeat-announcement  |
+| C-e  | B  | emacspeak-speak-buffer-interactively  |
+| C-e  | C  | emacspeak-customize  |
+| C-e  | F  | emacspeak-view-emacspeak-faq  |
+| C-e  | H  | emacspeak-speak-browse-linux-howto  |
+| C-e  | I  | emacspeak-speak-show-active-network-interfaces  |
+| C-e  | L  | emacspeak-speak-line-interactively  |
+| C-e  | M  | emacspeak-speak-minor-mode-line  |
+| C-e  | N  | emacspeak-view-emacspeak-news  |
+| C-e  | P  | emacspeak-speak-paragraph-interactively  |
+| C-e  | R  | emacspeak-speak-rectangle  |
+| C-e  | T  | emacspeak-view-emacspeak-tips  |
+|C-e  | U  | emacspeak-websearch-usenet  |
+| C-e  | V  | emacspeak-speak-version  |
+| C-e  | W  | emacspeak-tapestry-select-window-by-name  |
+| C-e  | [  | emacspeak-speak-page  |
+| C-e  | \  | emacspeak-toggle-speak-line-invert-filter  |
+| C-e  | ]  | emacspeak-speak-page-interactively  |
+| C-e  | ^  | emacspeak-filtertext  |
+| C-e  | a  | emacspeak-speak-again  |
+| C-e  | b  | emacspeak-speak-buffer  |
+| C-e  | c  | emacspeak-speak-char  |
+| C-e  | d  | emacspeak-dtk-submap-command  |
+| C-e  | e  | end-of-line  |
+| C-e  | f  | emacspeak-speak-buffer-filename  |
+| C-e  | g  | emacspeak-epub  |
+| C-e  | h  | emacspeak-speak-help  |
+| C-e  | i  | emacspeak-tabulate-region  |
+| C-e  | j  | emacspeak-hide-or-expose-block  |
+| C-e  | k  | emacspeak-speak-current-kill  |
+| C-e  | l  | emacspeak-speak-line  |
+| C-e  | m  | emacspeak-speak-mode-line  |
+| C-e  | n  | emacspeak-speak-rest-of-buffer  |
+| C-e  | o  | emacspeak-toggle-comint-output-monitor  |
+| C-e  | p  | emacspeak-speak-paragraph  |
+| C-e  | q  | emacspeak-toggle-speak-s  |
+| C-e  | r  | emacspeak-speak-region  |
+| C-e  | s  | dtk-stop  |
+| C-e  | t  | emacspeak-speak-time  |
+| C-e  | u  | emacspeak-url-template-fetch  |
+| C-e  | v  | view-register  |
+| C-e  | w  | emacspeak-speak-word  |
+| C-e  | x  | emacspeak-personal-keymap  |
+| C-e  | {  | emacspeak-speak-paragraph  |
+| C-e  | |  | emacspeak-speak-line-set-column-filter  |
+| C-e  | DEL  | cd-tool  |
+| C-e  | C-LEFTARROW  | emacspeak-select-this-buffer-previous-display  |
+| C-e  | C-RIGHTARROW  | emacspeak-select-this-buffer-next-display  |
+| C-e  | delete  | emacspeak-ssh-tts-restart  |
+| C-e  | <deletechar>  | emacspeak-ssh-tts-restart  |
+| C-e  | DOWNARROW  | emacspeak-read-next-line  |
+| C-e  | F1  | emacspeak-learn-emacs-mode  |
+| C-e  | F11  | emacspeak-wizards-shell-toggle  |
+| C-e  | INSERT  | emacspeak-emergency-tts-restart  |
+| C-e  | LEFTARROW  | emacspeak-speak-this-buffer-previous-display  |
+| C-e  | RIGHTARROW  | emacspeak-speak-this-buffer-next-display  |
+| C-e  | UPARROW  | emacspeak-read-previous-line  |
+| C-e  | C-Meta-@  | emacspeak-speak-spaces-at-point  |
+| C-e  | C-Meta-b  | emacspeak-submit-bug  |
+| C-e  | C-Meta-k  | kill-emacs  |
+| C-e  | C-Meta-r  | emacspeak-eterMeta-remote-term  |
+| C-e  | Meta-%  | emacspeak-goto-percent  |
+| C-e  | Meta-;  | emacspeak-webutils-play-media-at-point  |
+| C-e  | Meta-a  | emacspeak-set-auditory-icon-player  |
+| C-e  | Meta-b  | emacspeak-speak-other-buffer  |
+| C-e  | Meta-c  | emacspeak-copy-current-file  |
+| C-e  | Meta-d  | emacspeak-pronounce-dispatch  |
+| C-e  | Meta-f  | emacspeak-frame-label-or-switch-to-labelled-frame  |
+| C-e  | Meta-h  | emacspeak-speak-hostname  |
+| C-e  | Meta-l  | emacspeak-link-current-file  |
+| C-e  | Meta-m  | emacspeak-toggle-mail-alert  |
+| C-e  | Meta-q  | voice-setup-toggle-silence-personality  |
+| C-e  | Meta-r  | emacspeak-remote-connect-to-server  |
+| C-e  | Meta-s  | emacspeak-symlink-current-file  |
+| C-e  | Meta-t  | emacspeak-tapestry-describe-tapestry  |
+| C-e  | Meta-u  | emacspeak-feeds-add-feed  |
+| C-e  | Meta-v  | emacspeak-show-personality-at-point  |
+| C-e  | Meta-w  | emacspeak-toggle-which-function  |
+| C-e  | d C-d  | dectalk  |
+| C-e  | d espeak  |
+| C-e  | d RETURN  | dtk-set-chunk-separator-syntax  |
+| C-e  | d C-o  | outloud  |
+| C-e  | d C-v  | outloud-32  |
+| C-e  | d ESCAPE  | Prefix Command  |
+| C-e  | d SPACEBAR  | dtk-toggle-splitting-on-white-space  |
+| C-e  | d ,  | dtk-toggle-punctuation-mode  |
+| C-e  | d 0 to d 9  | dtk-set-predefined-speech-rate  |
+| C-e  | d A  | dtk-asynC-server  |
+| C-e  | d C  | dtk-toggle-allcaps-beep  |
+| C-e  | d L  | dtk-local-server  |
+| C-e  | d N  | dtk-set-next-language  |
+| C-e  | d P  | dtk-set-previous-language  |
+| C-e  | d R  | dtk-reset-state  |
+| C-e  | d S  | dtk-set-language  |
+| C-e  | d V  | tts-speak-version  |
+| C-e  | d a  | dtk-add-cleanup-pattern  |
+| C-e  | d b  | dtk-toggle-debug  |
+| C-e  | d c  | dtk-toggle-capitalization  |
+| C-e  | d d  | dtk-select-server  |
+| C-e  | d f  | dtk-set-character-scale  |
+| C-e  | d i  | emacspeak-toggle-audio-indentation  |
+| C-e  | d k  | emacspeak-toggle-character-echo  |
+| C-e  | d l  | emacspeak-toggle-line-echo  |
+| C-e  | d m  | emacspeak-speak-set-mode-punctuations  |
+| C-e  | d n  | dtk-toggle-speak-nonprinting-chars  |
+| C-e  | d o  | dtk-toggle-strip-octals  |
+| C-e  | d p  | dtk-set-punctuations  |
+| C-e  | d q  | dtk-toggle-quiet  |
+| C-e  | d r  | dtk-set-rate  |
+| C-e  | d s  | dtk-toggle-split-caps  |
+| C-e  | d t  | emacspeak-dial-dtk  |
+| C-e  | d v  | voice-lock-mode  |
+| C-e  | d w  | emacspeak-toggle-word-echo  |
+| C-e  | d z  | emacspeak-zap-tts  |
+| C-e  | d C-Meta-b  | tts-show-debug-buffer  |
+

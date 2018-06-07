@@ -1,0 +1,9 @@
+
+# Stop/Undo Commands #
+
+| Key-sequence  | M-x command  | Function  |
+|:-:|:-|:-|
+| C-g   | keyboard-quit   | Stop current command Now!        |
+| C-x u | advertised-undo | Undo the last edit (do it often) |
+
+

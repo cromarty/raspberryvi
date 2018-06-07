@@ -1,0 +1,11 @@
+
+# Window Commands #
+
+| Key-sequence  | M-x command  | Function  |
+|:-:|:-|:-|
+| C-x 2 | split-window-horizontally | Divide the current window horizontally in two. |
+| C-x 5 | Split-windows-vertically  | Divide the current window vertically in two.   |
+| C-x > | scroll-right              | Scroll the window right.                       |
+| C-x < | scroll-left               | Scroll the window left.                        |
+| C-x 0 | delete-window             | Delete the current window.                     |
+| C-x 1 | delete-other-windows      | Delete all the windows except this one.        |

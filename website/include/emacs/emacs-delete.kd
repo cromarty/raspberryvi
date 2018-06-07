@@ -1,0 +1,17 @@
+
+# Text Deletion Commands #
+
+|| Key-sequence  | M-x command  | Function  |
+|:-:|:-|:-|
+| Del     | backward-delete-char    | Delete the previous character.                      |
+| C-d     | delete-char             | Delete the character under the cursor.              |
+| M-Del   | backward-kill-word      | Delete the previous word.                           |
+| C-k     | kill-line               | Delete from the cursor to the end of line.          |
+| M-k     | kill-sentence           | Delete the sentence the cursor is in.               |
+| C-x Del | backward-kill-sentence  | Delete the previous sentence.                       |
+| C-y     | yank                    | Insert from kill-ring                               |
+| C-w     | kill-region             | Delete a marked region.                             |
+|None     | backward-kill-paragraph | Delete the previous paragraph.                      |
+|None     | kill-paragraph          | Delete from the cursor to the end of the paragraph. |
+
+

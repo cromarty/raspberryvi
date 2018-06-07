@@ -1,0 +1,11 @@
+
+# Incremental Search Commands #
+
+| Key-sequence  | M-x command  | Function  |
+|:-:|:-|:-|
+| C-s  | isearch-forward  | Start an incremental search forward.                   |
+| C-r  | isearch-backward | Starts an incremental search in the reverse direction. |
+| Meta |                  | Stop a successful search                               |
+| C-g  | keyboard-quit    | Stop searching and return to the starting point.       |
+| Del  |                  | Delete an incorrect character while searching          |
+

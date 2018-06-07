@@ -1,0 +1,82 @@
+<!-- 
+.. title: Beaglebone Black Board Description
+.. slug: beaglebone-black-board-description
+.. date: 2017-03-21 22:55:39 UTC
+.. tags: Beaglebone Black, Beaglebone
+.. category: 
+.. link: 
+.. description: Blind-friendly description of the Beaglebone Black Revision C
+.. type: text
+-->
+
+## Table of Contents
+{:.no_toc}
+
+* toc
+{:toc}
+
+## Introduction
+
+This page describes the board layout of the Beaglebone Black single-board computer, revision C.
+
+We will go round each edge of the board in turn, describing the connectors on each, and the orientation of the pin numbering of the expansion ports.
+
+The position of pin 1 and the numbering sequence is given.
+
+## Revision C
+
+This description applies to a revision C BBB. The latest at the time of writing (17-December-2016).
+
+The revision C increases the `EMCC` from 2GB to 4. There are probably other changes as well but this is the most significant and I don't have earlier boards to describe.
+
+## Orientation
+
+To read the description of each edge below successfully, hold the board so that the long edges are vertical, and the short edges horizontal, like portrait printing mode.  Hold the board with the edge containing the very obvious ethernet (RJ45) connector furthest from you.  Call this edge the north edge, and going round the board in a clockwise direction, the first long edge is east, the short edge closest to you is south, and the long edge on the left is the west edge.
+
+## North Edge
+
+In the top-left corner of the north edge, on the top surface of the board, is the dual-concentric DC connector.  Centre is positive and the outer is ground, or negative. The required level is 5 Volts.
+
+In the centre of the north edge, again on top of the board, is the ethernet connector (RJ45).
+
+On the underside of the board, in the top-right corner of the north edge, is a mini-USB socket.
+
+Above the mini-USB connector, on the top surface of the board, close to and parallel with the north edge, is a row of four very small surface-mount LEDs.
+
+They are labelled `USr0` (extreme right), to `USR3` (closest to the network port.
+
+On the top surface of the board and close to the right-side of the RJ45 connector, is a very small momentary push button. This is labelled `S3 PWR`.
+
+## East Edge
+
+The first thing going down the east edge is another very small push button on the top surface of the board, just above the small board mounting hole. This button is labelled `S1 RESET`.
+
+The only other thing on the east edge is P8. This is a female 46-way connector on the top edge of the board. It has two rows of 23 pins, making 46. Note that unlike the GPIO bus on a Raspberry Pi, this is a female connector.
+
+Pin 1 of P8 is top-left. Pin 2 is top-right. So, oddly numbered pins are from top to bottom of the row of 23 pins furthest away from the edge of the board. Evenly numbered pins are from top to bottom on the edge of the board.
+
+Therefore, pin 45 is at bottom-left and pin 46 at bottom-right.
+
+Very close to the bottom-left of P8, on the top surface of the board, is another momentary push-button. This button is only labelled `S1` but some documentation found online appears to suggest holding this button down during switch-on causes the OS to be re-flashed from the micro-SD card.
+
+This completes the east edge tour.
+
+## South Edge
+
+On the underside of the board in the bottom-right corner, at the furthest right of the south edge, is a micro-SD card slot. This is of the spring-loaded push-push type. Careful not to catapult your micro-SD card over your shoulder if your thumbnail slips off the edge of the card. I've done it myself.
+
+Also on the underside of the board, in roughly the centre of the south edge, is the micro-HDMI connector.
+
+On the top surface of the board at the left-most side of the south edge, is a full sized USB socket.
+
+There are mounting holes in both corners of the south edge.
+
+## West Edge
+
+The only things of note on the west edge of the board are P9 and J1.
+
+P9 is another 46-pin female IDC connector, again with pin 1 at top-left, and pin 2 at top-right. So, therefore, as for P8, pin 45 is at bottom-left and pin 46 at bottom-right. Oddly numbered pins are from top to bottom closest to the edge of the board. Evenly numbered pins are from top to bottom furthest from the edge of the board.
+
+Very close to the edge of P9 and about half-way down the length of it, furthest from the edge of the board, is J1. This is a six pin single-row of male IDC pins.
+
+
