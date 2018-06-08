@@ -1,32 +1,28 @@
 ---
 
-- hosts: all
-  become: yes
-  gather_facts: yes
-  tasks:
-#    - name: New user for AUR package installations
-#      user:
-#        name: "{{ aur_user }}"
-#        comment: "AUR manager"
-#        shell: /bin/nologin
-#        home: /var/lib/aurman
-#        system: yes
-#      tags: [user]
-#      when: not skip_user
+#- name: New user for AUR package installations
+#  user:
+#    name: "{{ aur_user }}"
+#    comment: "AUR manager"
+#    shell: /bin/nologin
+#    home: /var/lib/aurman
+#    system: yes
+#  tags: [user]
+#  when: not skip_user
 
-    - name: Install brltty-minimal dependencies
-      pacman:
-        name: icu,liblouis
-        state: latest
-        update_cache: yes
-      tags: [braille]
-      when: ansible_os_family == "Archlinux"
+- name: Install brltty-minimal dependencies
+  pacman:
+    name: icu,liblouis
+    state: latest
+    update_cache: yes
+  tags: [braille]
+  when: ansible_os_family == "Archlinux"
 
-    - name: Install brltty-minimal
-      aur:
-        name: brltty-minimal
-        user: "{{ aur_user }}"
-        dir: /tmp
-      tags: [braille]
-      when: ansible_os_family == "Archlinux"
+- name: Install brltty-minimal
+  aur:
+    name: brltty-minimal
+    user: "{{ aur_user }}"
+    dir: /tmp
+  tags: [braille]
+  when: ansible_os_family == "Archlinux"
 

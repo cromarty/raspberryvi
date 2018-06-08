@@ -1,14 +1,10 @@
 ---
 
-- hosts: all
-  become: yes
-  gather_facts: yes
-  tasks:
-    - name: Install sound related packages
-      pacman:
-        name: alsa-utils,espeak,speech-dispatcher
-        state: latest
-        update_cache: yes
-      tags: [sound]
-      when: ansible_os_family == "Archlinux"
+- name: Install sound related packages
+  pacman:
+    name: alsa-utils,espeak,speech-dispatcher
+    state: latest
+    update_cache: yes
+  tags: [sound]
+  when: ansible_os_family == "Archlinux"
 
