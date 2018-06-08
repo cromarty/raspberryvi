@@ -1,1 +1,0 @@
-kramdown::http://kramdown.gettalong.org/

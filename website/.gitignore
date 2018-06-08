@@ -1,9 +1,0 @@
-cache/
-*.pyc
-*~
-res
-output/
-*.gz
-state_data.json
-
-
