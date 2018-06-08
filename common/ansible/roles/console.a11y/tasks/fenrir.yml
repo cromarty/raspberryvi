@@ -4,7 +4,7 @@
   become: yes
   gather_facts: yes
   tasks:
-    - name: Install Fenrir dependencies
+    - name: Install Fenrir screen reader
       pip:
         name: fenrir-screenreader
         state: present

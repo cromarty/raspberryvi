@@ -9,4 +9,4 @@
         name: "{{ default_user }}"
         groups: wheel,audio
         append: yes
-
+      when: ansible_os_family == "Archlinux"

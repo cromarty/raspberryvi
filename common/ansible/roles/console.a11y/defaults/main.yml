@@ -1,7 +1,23 @@
 ---
-# defaults file for alarmpi.console.a11y
 
-aur_user: aur_manager
-skip_aur_user: no
+# Localisation
+locale: en_GB
+keymap: uk
 
+
+# User variables
+default_user: alarm
+
+
+# speech-dispatcher
+AudioOutputMethod: libao
+
+
+
+skip_braille: true
+skip_devtools: false
+skip_fenrir: true
+skip_sound: true
+skip_user: true
+skip_yaourt: true
 

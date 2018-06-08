@@ -2,8 +2,8 @@
 
 
 - hosts: all
-  become: yes
-  gather_facts: yes
+  become: no
+  gather_facts: no
   roles:
     - console.a11y
 

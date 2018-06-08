@@ -12,10 +12,17 @@
 # https://github.com/ansible/ansible/issues/24110
 #
 
-    - name: Install base-devel one package at a time
+    - name: Arch, install base-devel one package at a time
       pacman:
         name: autoconf,automake,binutils,bison,fakeroot,file,findutils,flex,gawk,gcc,gettext,grep,groff,gzip,libtool,m4,make,pacman,patch,pkg-config,sed,sudo,systemd,texinfo,util-linux,which
         state: latest
         update_cache: yes
       when: ansible_os_family == "Archlinux"
+
+    - Name: Debian, install build-essential
+      apt:
+        name: build-essential
+        state: present
+        update_cache: true
+      when: ansible_os_family == "Debian"
 

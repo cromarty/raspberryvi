@@ -5,25 +5,24 @@
   become: yes
   gather_facts: yes
   tasks:
-    - name: New user for AUR package installation
-      user:
-        name: "{{ aur_user }}"
-        comment: "AUR manager"
-        shell: /bin/nologin
-        home: /var/lib/aurman
-        system: yes
-      when: not skip_aur_user
+#    - name: New user for AUR package installation
+#      user:
+#        name: "{{ aur_user }}"
+#        comment: "AUR manager"
+#        shell: /bin/nologin
+#        home: /var/lib/aurman
+#        system: yes
+#      when: not skip_aur_user
 
     - name: Install package-query
       aur:
         name: package-query
-        user: "{{ aur_user }}"
+        user: "{{ default_user }}"
         dir: /tmp
-      when: ansible_os_family == "Archlinux"
 
     - name: Install yaourt
       aur:
         name: yaourt
-        user: "{{ aur_user }}"
+        user: "{{ default_user }}"
         dir: /tmp
-      when: ansible_os_family == "Archlinux"
+
