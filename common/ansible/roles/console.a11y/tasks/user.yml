@@ -1,0 +1,12 @@
+---
+
+- hosts: all
+  become: yes
+  gather_facts: yes
+  tasks:
+    - name: Additional groups for default user
+      user:
+        name: "{{ default_user }}"
+        groups: wheel,audio
+        append: yes
+
