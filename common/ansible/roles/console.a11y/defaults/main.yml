@@ -19,5 +19,5 @@ skip_devtools: false
 skip_fenrir: true
 skip_sound: true
 skip_user: true
-skip_yaourt: true
+skip_yaourt: false
 
