@@ -1,0 +1,16 @@
+---
+
+
+- name: Debian, install espeakup
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+  with_items:
+    - espeakup
+  when: ansible_os_family == "Debian"
+
+- name: Add speakup_soft line to /etc/modules-load.d/modules.conf
+  command: echo -e "speakup_soft\n" >> /etc/modules-load.d/modules.conf
+  when: ansible_os_family == "Debian"
+

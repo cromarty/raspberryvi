@@ -14,10 +14,11 @@ AudioOutputMethod: libao
 
 
 
-skip_braille: true
-skip_devtools: false
-skip_fenrir: true
-skip_sound: true
-skip_user: true
-skip_yaourt: false
+
+  skip_devtools: false
+  skip_yaourt: false
+  skip_braille: true
+  skip_sound: true
+  skip_fenrir: true
+skip_espeakup: true
 
