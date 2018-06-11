@@ -12,6 +12,7 @@
   fail:
     msg: "No point in installing speakup/espeakup on 64-bit OS. No userland code available."
   when: ansible_architecture == "aarch64"
+  tags: [espeakup]
 
 - name: Debian, install espeakup
   apt:
@@ -23,6 +24,7 @@
     - libespeak-dev
     - espeakup
   when: ansible_os_family == "Debian"
+  tags: [espeakup]
 
 - name: Copy speakup.conf to /etc/modules-load.d
   copy:
@@ -32,22 +34,26 @@
     group: root
     mode: 0644
   when: ansible_os_family == "Debian"
+  tags: [espeakup]
 
 - name: Load speakup_soft for this session
   modprobe:
     name: speakup_soft
     state: present
   when: ansible_os_family == "Debian"
+  tags: [espeakup]
 
 - name: Enable espeakup service
   service:
     name: espeakup
     enabled: yes
   when: ansible_os_family == "Debian"
+  tags: [espeakup]
 
 - name: Start espeakup service
   service:
     name: espeakup
     state: started
   when: ansible_os_family == "Debian"
+  tags: [espeakup]
 

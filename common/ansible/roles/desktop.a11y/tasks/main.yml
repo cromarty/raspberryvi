@@ -28,6 +28,7 @@
 
 - name: Include tasks from orca.yml
   include_tasks: orca.yml
+  tags: [orca]
   when: not skip_orca
 
 - name: End of tasks from main.yml

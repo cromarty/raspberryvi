@@ -7,8 +7,8 @@ ansible_become_pass: "{{ vault_ansible_become_pass }}"
 skip_devtools: false
 skip_espeakup: false
 skip_speechd: false
-skip_desktop: true
-skip_orca: true
+skip_desktop: false
+skip_orca: false
 
 # desktop
 desktop: mate

@@ -13,12 +13,14 @@
   fail:
     msg: "No point in installing Orca on 64-bit OS. No userland code available."
   when: ansible_architecture == "aarch64"
+  tags: [orca]
 
 - name: Debian, install Orca screen reader
   apt:
     name: gnome_orca
     state: latest
   when: ansible_os_family == "Debian"
+  tags: [orca]
 
 
 
@@ -29,4 +31,5 @@
     - org.mate.interface.accessibility
     - org.gnome.desktop.a11y.applications.screen-reader-enabled
   when: ansible_os_family == "Debian"
+  tags: [orca]
 
