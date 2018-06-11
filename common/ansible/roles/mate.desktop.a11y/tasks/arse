@@ -1,0 +1,6 @@
+skip_devtools: false
+skip_espeakup: false
+skip_speechd: false
+skip_mate: false
+
+

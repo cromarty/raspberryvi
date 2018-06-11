@@ -1,0 +1,9 @@
+---
+
+- name: Debian, install build-essential
+  apt:
+    name: build-essential
+    state: latest
+    update_cache: true
+  when: ansible_os_family == "Debian"
+

@@ -1,0 +1,15 @@
+---
+
+- name: Debian, install speech-dispatcher
+  apt:
+    name: "{{ item }}"
+  with_items:
+    - libao-common
+    - speech-dispatcher
+  when: ansible_os_family == "Debian"
+
+
+- name: Debian, change speech-dispatcher to libao
+  command: sed -i.bak 's|# AudioOutputMethod "pulse"| AudioOutputMethod "libao"|' /etc/speech-dispatcher/speechd.conf
+  when: ansible_os_family == "Debian"
+
