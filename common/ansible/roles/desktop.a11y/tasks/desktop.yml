@@ -1,34 +1,8 @@
 ---
 
-#
-# Debug msg if architecture is 'aarch64' (64-bit Raspberry Pi with 64-bit OS).
-#
-# Because no 64-bit userland code is currently available. The userland
-# code includes the vchiq process for queueing speech into the
-# Raspberry Pi GPU.
-#
 
-- name: Warn if architecture is aarch64
-  debug: msg="No point in installing desktop on 64-bit OS. No userland code available."
-  when: ansible_architecture == "aarch64"
-  tags: [desktop]
-
-- name: Debian, install Mate desktop
-  apt:
-    name: "{{ item }}"
-    state: latest
-  with_items:
-    - mate-core
-    - mate-desktop-environment
-    - xinit
-    - lightdm
-  when: (ansible_os_family == "Debian"
-        and desktop == "mate")
-  tags: [desktop]
-
-- name: Fix lightdm config
-  command: sed -i 's|^#\(greeter-wrapper=\)|\1/usr/bin/orca-dm-wrapper|' /etc/lightdm/lightdm.conf
-  when: (ansible_os_family == "Debian"
-        and desktop == "mate")
+- name: Include tasks from mate.yml
+  include_tasks: mate.yml
+  when: desktop == "mate"
   tags: [desktop]
 

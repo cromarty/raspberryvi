@@ -1,0 +1,17 @@
+---
+
+- name: Arch, install package-query
+  aur:
+    name: package-query
+    user: "{{ default_user }}"
+    dir: /tmp
+  when: ansible_os_family == "Archlinux"
+  tags: [yaourt]
+
+- name: Arch, install yaourt
+  aur:
+    name: yaourt
+    user: "{{ default_user }}"
+    dir: /tmp
+  when: ansible_os_family == "Archlinux"
+  tags: [yaourt]

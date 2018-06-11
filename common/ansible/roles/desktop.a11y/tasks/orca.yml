@@ -15,10 +15,19 @@
   when: ansible_architecture == "aarch64"
   tags: [orca]
 
+-name: Arch, install Orca
+  pacman:
+    name: orca
+    update_cache: yes
+    state: latest
+  when: ansible_os_family == "Archlinux"
+  tags: [orca]
+
 - name: Debian, install Orca screen reader
   apt:
     name: gnome_orca
     state: latest
+    update_cache: yes
   when: ansible_os_family == "Debian"
   tags: [orca]
 

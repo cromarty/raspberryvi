@@ -1,6 +1,8 @@
 ---
 
 skip_devtools: false
+skip_yaourt: false
+skip_sound: false
 skip_espeakup: false
 skip_speechd: false
 skip_desktop: false
