@@ -3,6 +3,8 @@
 ansible_user: "{{ vault_ansible_user }}"
 ansible_become_pass: "{{ vault_ansible_become_pass }}"
 
+default_user: pi
+
 # skip switches
 skip_devtools: false
 skip_espeakup: false

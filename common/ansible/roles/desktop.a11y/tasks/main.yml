@@ -28,12 +28,17 @@
   include_tasks: mate.yml
   when: (not skip_desktop
         and desktop == "mate")
-  tags: [mate]
+  tags: [desktop]
 
 - name: Include tasks from orca.yml
   include_tasks: orca.yml
   when: not skip_orca
   tags: [orca]
+
+- name: Set accessibility switches
+  include_tasks: gsetting.a11y.yml
+  when: ansible_os_family == "Debian"
+  tags: [a11y.switches]
 
 - name: End of tasks from main.yml
   debug: msg="End of tasks from main.yml"

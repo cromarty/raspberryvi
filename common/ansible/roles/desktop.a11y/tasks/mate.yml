@@ -11,7 +11,7 @@
 - name: Warn if architecture is aarch64
   debug: msg="No point in installing desktop on 64-bit OS. No userland code available."
   when: ansible_architecture == "aarch64"
-  tags: [desktop,mate]
+  tags: [desktop]
 
 - name: Debian, install Mate desktop
   apt:
@@ -24,11 +24,11 @@
     - lightdm
   when: (ansible_os_family == "Debian"
         and desktop == "mate")
-  tags: [desktop,mate]
+  tags: [desktop]
 
 - name: Fix lightdm config
   command: sed -i 's|^#\(greeter-wrapper=\)|\1/usr/bin/orca-dm-wrapper|' /etc/lightdm/lightdm.conf
   when: (ansible_os_family == "Debian"
         and desktop == "mate")
-  tags: [desktop,mate]
+  tags: [desktop]
 
