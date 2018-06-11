@@ -3,31 +3,26 @@
 - name: Start of tasks from main.yml
   debug: msg="Start of tasks from main.yml"
 
-- name: Include devtools.archlinux.yml
+- name: Include tasks from devtools.yml
   include_tasks: devtools.yml
   tags: [devtools]
   when: not skip_devtools
 
-- name: Include yaourt.yml
-  include_tasks: yaourt.yml
-  tags: [yaourt]
-  when: (ansible_os_family == "Archlinux"
-          and not skip_yaourt)
+- name: Include tasks from espeakup.yml
+  include_tasks: espeakup.yml
+  tags: [espeakup]
+  when: not skip_espeakup
 
-- name: Include tasks from braille.yml
-  include_tasks: braille.yml
-  tags: [braille]
-  when: not skip_braille
 
-- name: Include tasks from sound.yml
-  include_tasks: sound.yml
-  tags: [sound]
-  when: not skip_sound
+- name: Include tasks from speechd.yml
+  include_tasks: speechd.yml
+  tags: [speechd]
+  when: not skip_speechd
 
-- name: Include fenrir.yml
-  include_tasks: fenrir.yml
-  tags: [fenrir]
-  when: not skip_fenrir
+- name: Include tasks from mate.yml
+  include_tasks: mate.yml
+  tags: [mate]
+  when: not skip_mate
 
 - name: End of tasks from main.yml
   debug: msg="End of tasks from main.yml"
