@@ -1,5 +1,18 @@
 ---
 
+#
+# Fail if architecture is 'aarch64' (64-bit Raspberry Pi with 64-bit OS).
+#
+# Because no 64-bit userland code is currently available. The userland
+# code includes the vchiq process for queueing speech into the
+# Raspberry Pi GPU.
+#
+
+- name: Fail if architecture is aarch64
+  fail:
+    msg: "No point in installing speech-dispatcher on 64-bit OS. No userland code available."
+  when: ansible_architecture == "aarch64"
+
 - name: Debian, install speech-dispatcher
   apt:
     name: "{{ item }}"
