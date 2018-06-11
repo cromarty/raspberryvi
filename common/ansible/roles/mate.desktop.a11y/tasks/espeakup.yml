@@ -1,6 +1,5 @@
 ---
 
-
 - name: Debian, install espeakup
   apt:
     name: "{{ item }}"
@@ -25,5 +24,17 @@
   modprobe:
     name: speakup_soft
     state: present
+  when: ansible_os_family == "Debian"
+
+- name: Enable espeakup service
+  service:
+    name: espeakup
+    enabled: yes
+  when: ansible_os_family == "Debian"
+
+- name: Start espeakup service
+  service:
+    name: espeakup
+    state: started
   when: ansible_os_family == "Debian"
 

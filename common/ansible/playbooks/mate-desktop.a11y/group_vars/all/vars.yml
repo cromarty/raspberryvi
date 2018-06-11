@@ -3,11 +3,17 @@
 ansible_user: "{{ vault_ansible_user }}"
 ansible_become_pass: "{{ vault_ansible_become_pass }}"
 
-
-
-skip_devtools: true
+# skip switches
+skip_devtools: false
 skip_espeakup: false
-skip_speechd: true
-skip_mate: true
+skip_speechd: false
+skip_desktop: true
+skip_orca: true
 
+# desktop
+desktop: mate
+
+# speech-dispatcher speechd.conf template variables
+# (/etc/speech-dispatcher/speechd.conf)
+AudioOutputMethod: libao
 

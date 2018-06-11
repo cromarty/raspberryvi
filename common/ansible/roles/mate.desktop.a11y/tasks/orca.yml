@@ -1,0 +1,18 @@
+---
+
+- name: Debian, install Orca screen reader
+  apt:
+    name: gnome_orca
+    state: latest
+  when: ansible_os_family == "Debian"
+
+
+
+- name: Set accessibility switches
+  gsetting:
+    value: true
+  with_items:
+    - org.mate.interface.accessibility
+    - org.gnome.desktop.a11y.applications.screen-reader-enabled
+  when: ansible_os_family == "Debian"
+

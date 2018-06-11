@@ -9,7 +9,13 @@
   when: ansible_os_family == "Debian"
 
 
-- name: Debian, change speech-dispatcher to libao
-  command: sed -i.bak 's|# AudioOutputMethod "pulse"| AudioOutputMethod "libao"|' /etc/speech-dispatcher/speechd.conf
+- name: Debian, install speechd.conf template
+  template:
+    src: speechd.conf.j2
+    dest: /etc/speech-dispatcher/speechd.conf
+    backup: yes
+    owner: root
+    group: root
+    mode: 0644
   when: ansible_os_family == "Debian"
 

@@ -22,7 +22,13 @@
 - name: Include tasks from mate.yml
   include_tasks: mate.yml
   tags: [mate]
-  when: not skip_mate
+  when: (not skip_desktop
+        and desktop == "mate")
+
+
+- name: Include tasks from orca.yml
+  include_tasks: orca.yml
+  when: not skip_orca
 
 - name: End of tasks from main.yml
   debug: msg="End of tasks from main.yml"

@@ -1,20 +1,12 @@
 ---
 
-- name: Debian, install build-essential
-  apt:
-    name: build-essential
-    state: present
-    update_cache: true
-  when: ansible_os_family == "Debian"
-
-- name: Debian, installing Mate desktop
+- name: Debian, install Mate desktop
   apt:
     name: "{{ item }}"
     state: latest
   with_items:
     - mate-core
     - mate-desktop-environment
-    - gnome-orca
     - xinit
     - lightdm
   when: ansible_os_family == "Debian"
