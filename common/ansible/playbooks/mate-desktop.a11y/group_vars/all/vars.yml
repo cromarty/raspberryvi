@@ -5,8 +5,8 @@ ansible_become_pass: "{{ vault_ansible_become_pass }}"
 
 
 
-skip_devtools: false
-skip_espeakup: true
+skip_devtools: true
+skip_espeakup: false
 skip_speechd: true
 skip_mate: true
 

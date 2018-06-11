@@ -12,7 +12,18 @@
     - espeakup
   when: ansible_os_family == "Debian"
 
-- name: Add speakup_soft line to /etc/modules-load.d/modules.conf
-  command: echo -e "speakup_soft\n" >> /etc/modules-load.d/modules.conf
+- name: Copy speakup.conf to /etc/modules-load.d
+  copy:
+    src: speakup.conf
+    dest: /etc/modules-load.d
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == "Debian"
+
+- name: Load speakup_soft for this session
+  modprobe:
+    name: speakup_soft
+    state: present
   when: ansible_os_family == "Debian"
 
