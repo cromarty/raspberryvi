@@ -5,5 +5,5 @@
   become: yes
   gather_facts: yes
   roles:
-    - mate.desktop.a11y
+    - desktop.a11y
 
