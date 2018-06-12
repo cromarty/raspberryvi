@@ -4,6 +4,7 @@ skip_devtools: false
 skip_yaourt: false
 skip_sound: false
 skip_espeakup: false
+skip_fenrir: true
 skip_speechd: false
 skip_desktop: false
 skip_orca: false

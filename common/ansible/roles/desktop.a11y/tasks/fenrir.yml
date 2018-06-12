@@ -1,0 +1,31 @@
+---
+
+- name: Arch, install Fenrir screen reader
+  pip:
+    name: fenrir-screenreader
+    state: present
+  when: ansible_os_family == "Archlinux"
+  tags: [fenrir]
+
+- name: Debian, install Fenrir screen reader dependencies
+  apt:
+    name: {{ item }}
+    state: latest
+    update_cache: yes
+  with_items:
+    - dbus
+    - pkg-config
+    - libdbus-glib-1-dev
+  when: ansible_os_family == "Debian"
+  tags: [fenrir]
+
+- name: Debian, install Fenrir screen reader
+  pip:
+    name: fenrir-screenreader
+    state: present
+  when: ansible_os_family == "Debian"
+  tags: [fenrir]
+
+
+
+

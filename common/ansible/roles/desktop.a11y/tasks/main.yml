@@ -18,11 +18,15 @@
   when: not skip_espeakup
   tags: [espeakup]
 
-
 - name: Include tasks from speechd.yml
   include_tasks: speechd.yml
   when: not skip_speechd
   tags: [speechd]
+
+- name: Include tasks from fenrir.yml
+  include_tasks: fenrir.yml
+  when: not skip_fenrir
+  tags: [fenrir]
 
 - name: Include tasks from mate.yml
   include_tasks: mate.yml
