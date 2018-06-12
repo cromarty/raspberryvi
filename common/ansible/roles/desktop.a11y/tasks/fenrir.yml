@@ -1,31 +1,67 @@
 ---
 
-- name: Arch, install Fenrir screen reader
-  pip:
-    name: fenrir-screenreader
-    state: present
-  when: ansible_os_family == "Archlinux"
+- name: Start of tasks from fenrir.yml
+  debug:
+    msg: "Start of tasks from fenrir.yml"
   tags: [fenrir]
 
-- name: Debian, install Fenrir screen reader dependencies
+- name: Test which version of Python is symlinked
+  shell: python --version
+  register: python_version
+  tags: [fenrir]
+
+
+- name: Fail if not running Python 3
+  fail:
+    msg: "Fenrir needs Python 3"
+  when: python_version.stdout.find('Python 3') == -1
+  tags: [fenrir]
+
+- name: Arch, install pip3
+  pacman:
+    name: python-pip
+    state: latest
+    update_cache: yes
+  when: ansible_distribution == "Archlinux"
+  tags: [fenrir]
+
+- name: Debian, install pip3
   apt:
-    name: {{ item }}
+    name: python3-pip
+    state: latest
+    update_cache: yes
+  when: ansible_distribution == "Debian"
+  tags: [fenrir]
+
+- name: Arch, install Fenrir dependencies
+  pacman:
+    name: dbus
+    state: latest
+    update_cache: yes
+  when: ansible_distribution == "Archlinux"
+  tags: [fenrir]
+
+- name: Debian, install Fenrir dependencies
+  apt:
+    name: "{{ item }}"
     state: latest
     update_cache: yes
   with_items:
     - dbus
-    - pkg-config
     - libdbus-glib-1-dev
-  when: ansible_os_family == "Debian"
+  when: ansible_distribution == "Debian"
   tags: [fenrir]
 
-- name: Debian, install Fenrir screen reader
+
+- name: Arch or Debian, install Fenrir screen reader
   pip:
     name: fenrir-screenreader
     state: present
-  when: ansible_os_family == "Debian"
+  when: (ansible_distribution == "Archlinux" or ansible_distribution == "Debian")
   tags: [fenrir]
 
-
-
+- name: End of tasks from fenrir.yml
+  debug:
+    msg: "End of tasks from fenrir.yml"
+  tags: [fenrir]
 

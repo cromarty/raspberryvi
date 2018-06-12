@@ -20,7 +20,7 @@
   with_items:
     - libao-common
     - speech-dispatcher
-  when: ansible_os_family == "Debian"
+  when: ansible_distribution == "Debian"
   tags: [speechd]
 
 
@@ -32,6 +32,6 @@
     owner: root
     group: root
     mode: 0644
-  when: ansible_os_family == "Debian"
+  when: ansible_distribution == "Debian"
   tags: [speechd]
 

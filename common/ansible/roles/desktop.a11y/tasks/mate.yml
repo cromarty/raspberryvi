@@ -18,7 +18,7 @@
     name: mate,mate-extra
     state: latest
     update_cache: yes
-  when: (ansible_os_family == "Archlinux"
+  when: (ansible_distribution == "Archlinux"
         and desktop == "mate")
   tags: [desktop]
 
@@ -31,13 +31,13 @@
     - mate-desktop-environment
     - xinit
     - lightdm
-  when: (ansible_os_family == "Debian"
+  when: (ansible_distribution == "Debian"
         and desktop == "mate")
   tags: [desktop]
 
 - name: Fix lightdm config
   command: sed -i 's|^#\(greeter-wrapper=\)|\1/usr/bin/orca-dm-wrapper|' /etc/lightdm/lightdm.conf
-  when: (ansible_os_family == "Debian"
+  when: (ansible_distribution == "Debian"
         and desktop == "mate")
   tags: [desktop]
 

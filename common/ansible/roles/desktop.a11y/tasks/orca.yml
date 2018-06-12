@@ -20,7 +20,7 @@
     name: orca
     update_cache: yes
     state: latest
-  when: ansible_os_family == "Archlinux"
+  when: ansible_distribution == "Archlinux"
   tags: [orca]
 
 - name: Debian, install Orca screen reader
@@ -28,7 +28,7 @@
     name: gnome-orca
     state: latest
     update_cache: yes
-  when: ansible_os_family == "Debian"
+  when: ansible_distribution == "Debian"
   tags: [orca]
 
 
@@ -39,6 +39,6 @@
   with_items:
     - org.mate.interface.accessibility
     - org.gnome.desktop.a11y.applications.screen-reader-enabled
-  when: ansible_os_family == "Debian"
+  when: ansible_distribution == "Debian"
   tags: [orca]
 

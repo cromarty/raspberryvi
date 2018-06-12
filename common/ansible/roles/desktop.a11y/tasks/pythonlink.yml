@@ -1,0 +1,17 @@
+---
+
+- name: Test which version of Python is symlinked
+  shell: python --version
+  register: bollocks
+  tags: [pythonlink]
+
+- name: Change Python symlink
+  file:
+    src: /usr/bin/python3
+    dest: /usr/bin/python
+    owner: root
+    group: root
+    state: link
+  when: bollocks.stdout.find('Python 2') == -1
+  tags: [pythonlink]
+

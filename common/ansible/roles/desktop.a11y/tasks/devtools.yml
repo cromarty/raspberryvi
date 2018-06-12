@@ -22,18 +22,14 @@
     name: autoconf,automake,binutils,bison,fakeroot,file,findutils,flex,gawk,gcc,gettext,grep,groff,gzip,libtool,m4,make,pacman,patch,pkgconf,sed,sudo,systemd,texinfo,util-linux,which,python2-pip,python-pip
     state: latest
     update_cache: yes
-  when: ansible_os_family == "Archlinux"
+  when: ansible_distribution == "Archlinux"
   tags: [devtools]
 
 - name: Debian, install build-essential
   apt:
-    name: {{ item }}
+    name: build-essential
     state: latest
     update_cache: true
-  with_items:
-    - build-essential
-    - python-pip
-    - python3-pip
-  when: ansible_os_family == "Debian"
+  when: ansible_distribution == "Debian"
   tags: [devtools]
 

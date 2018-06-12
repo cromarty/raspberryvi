@@ -23,7 +23,7 @@
     - espeak
     - libespeak-dev
     - espeakup
-  when: ansible_os_family == "Debian"
+  when: ansible_distribution == "Debian"
   tags: [espeakup]
 
 - name: Copy speakup.conf to /etc/modules-load.d
@@ -33,27 +33,27 @@
     owner: root
     group: root
     mode: 0644
-  when: ansible_os_family == "Debian"
+  when: ansible_distribution == "Debian"
   tags: [espeakup]
 
 - name: Load speakup_soft for this session
   modprobe:
     name: speakup_soft
     state: present
-  when: ansible_os_family == "Debian"
+  when: ansible_distribution == "Debian"
   tags: [espeakup]
 
 - name: Enable espeakup service
   service:
     name: espeakup
     enabled: yes
-  when: ansible_os_family == "Debian"
+  when: ansible_distribution == "Debian"
   tags: [espeakup]
 
 - name: Start espeakup service
   service:
     name: espeakup
     state: started
-  when: ansible_os_family == "Debian"
+  when: ansible_distribution == "Debian"
   tags: [espeakup]
 
