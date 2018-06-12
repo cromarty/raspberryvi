@@ -1,34 +1,28 @@
 
 # raspberryvi
 
-## Licenses
+All code in this repository is 
+copyright(R), 2018, Mike Ray, 
+<mike.ray@btinternet.com>
 
-My code is licensed under the GPL3, see 
-the file GPL3_LICENSE
+Exceptions are some Ansible library code 
+in `common/ansible`. See the README.md 
+file in that directory for details.
 
-I have used some Ansible library code 
-from other developers and these are 
-shown below along with the license file 
-names.
+## Sub-directories
 
-* aur
+* common
 
+Contains code and utilities which are 
+not distribution specific.
 
-aur
+* alarmpi
 
-	
-https://github.com/pigmonkey/ansible-aur
+Contains code and utilities specific to 
+Arch Linux on the Raspberry Pi.
 
-	MIT_LICENSE
+* raspbian
 
-* gsetting
-
-
-gsetting
-
-	
-https://github.com/jistr/ansible-gsetting.git
-
-	APACHE_LICENSE
-
+Contains code specific to Raspbian on 
+the Raspberry Pi.
 

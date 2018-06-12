@@ -13,6 +13,15 @@
   when: ansible_architecture == "aarch64"
   tags: [desktop]
 
+- name: Arch, install Mate desktop
+  pacman:
+    name: mate,mate-extra
+    state: latest
+    update_cache: yes
+  when: (ansible_os_family == "Archlinux"
+        and desktop == "mate")
+  tags: [desktop]
+
 - name: Debian, install Mate desktop
   apt:
     name: "{{ item }}"
