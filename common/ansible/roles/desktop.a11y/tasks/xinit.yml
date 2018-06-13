@@ -1,0 +1,21 @@
+---
+
+- name: Warn if architecture is aarch64
+  debug: msg="Desktop will not be accessible with a screen reader on aarch64, no userland code available"
+  when: ansible_architecture == "aarch64"
+  tags: [xinit]
+
+- name: Arch, install xinit
+  pacman:
+    name: xorg-xinit
+    state: latest
+    update_cache: yes
+  when: ansible_distribution == "Archlinux"
+  tags: [xinit]
+
+- name: Debian, install xinit
+  apt:
+    name: xinit
+    state: latest
+  when: ansible_distribution == "Debian"
+  tags: [xinit]

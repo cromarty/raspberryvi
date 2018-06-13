@@ -3,9 +3,9 @@
 - name: Start of tasks from main.yml
   debug: msg="Start of tasks from main.yml"
 
-- name: Include tasks from pythonlink.yml
-  include_tasks: pythonlink.yml
-  tags: [pythonlink]
+#- name: Include tasks from pythonlink.yml
+#  include_tasks: pythonlink.yml
+#  tags: [pythonlink]
 
 - name: Include tasks from devtools.yml
   include_tasks: devtools.yml
@@ -16,6 +16,11 @@
   include_tasks: sound.yml
   when: not skip_sound
   tags: [sound]
+
+- name: Include tasks from user.yml
+  include_tasks: user.yml
+  when: not skip_user
+  tags: [user]
 
 - name: Include tasks from espeakup.yml
   include_tasks: espeakup.yml

@@ -29,7 +29,6 @@
   with_items:
     - mate-core
     - mate-desktop-environment
-    - xinit
     - lightdm
   when: (ansible_distribution == "Debian"
         and desktop == "mate")
@@ -39,5 +38,25 @@
   command: sed -i 's|^#\(greeter-wrapper=\)|\1/usr/bin/orca-dm-wrapper|' /etc/lightdm/lightdm.conf
   when: (ansible_distribution == "Debian"
         and desktop == "mate")
+  tags: [desktop]
+
+- name: Install orca-dm-wrapper
+  file:
+    src: orca-dm-wrapper
+    dest: /usr/bin/orca-dm-wrapper
+    owner: root
+    group: root
+    mode: 0755
+  when: desktop == "mate"
+  tags: [desktop]
+
+- name: Install new lightdm.conf
+  file:
+    src: lightdm.conf
+    dest: /etc/lightdm/lightdm.conf
+    owner: root
+    group: root
+    mode: 0664
+  when: desktop == "mate"
   tags: [desktop]
 

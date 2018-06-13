@@ -1,9 +1,0 @@
----
-
-- name: Install Fenrir screen reader
-  pip:
-    name: fenrir-screenreader
-    state: present
-  tags: [fenrir]
-
-

@@ -14,17 +14,25 @@
   when: ansible_architecture == "aarch64"
   tags: [speechd]
 
+- name: Arch, install speech-dispatcher
+  pacman:
+    name: speech-dispatcher
+    update_cache: yes
+  when: ansible_distribution == "Archlinux"
+  tags: [speechd]
+
 - name: Debian, install speech-dispatcher
   apt:
     name: "{{ item }}"
   with_items:
     - libao-common
     - speech-dispatcher
+    - speech-dispatcher-espeak
   when: ansible_distribution == "Debian"
   tags: [speechd]
 
 
-- name: Debian, install speechd.conf template
+- name: Install speechd.conf template
   template:
     src: speechd.conf.j2
     dest: /etc/speech-dispatcher/speechd.conf
@@ -32,6 +40,5 @@
     owner: root
     group: root
     mode: 0644
-  when: ansible_distribution == "Debian"
   tags: [speechd]
 
