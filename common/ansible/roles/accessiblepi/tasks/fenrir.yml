@@ -4,7 +4,8 @@
 - name: Start of tasks from fenrir.yml
   debug:
     msg: "Start of tasks from fenrir.yml"
-  tags: [fenrir]
+  tags:
+    - fenrir
 
 #
 # The host needs to be running Python 3 in order to run
@@ -14,14 +15,16 @@
 - name: Test which version of Python is symlinked
   shell: python --version
   register: python_version
-  tags: [fenrir]
+  tags:
+    - fenrir
 
 
 - name: Fail if not running Python 3
   fail:
     msg: "Fenrir needs Python 3"
   when: python_version.stdout.find('Python 3') == -1
-  tags: [fenrir]
+  tags:
+    - fenrir
 
 - name: Arch, install pip3
   pacman:
@@ -29,7 +32,8 @@
     state: latest
     update_cache: yes
   when: ansible_distribution == "Archlinux"
-  tags: [fenrir]
+  tags:
+    - fenrir
 
 - name: Debian, install pip3
   apt:
@@ -37,7 +41,8 @@
     state: latest
     update_cache: yes
   when: ansible_distribution == "Debian"
-  tags: [fenrir]
+  tags:
+    - fenrir
 
 - name: Arch, install Fenrir dependencies
   pacman:
@@ -45,7 +50,8 @@
     state: latest
     update_cache: yes
   when: ansible_distribution == "Archlinux"
-  tags: [fenrir]
+  tags:
+    - fenrir
 
 - name: Debian, install Fenrir dependencies
   apt:
@@ -56,7 +62,8 @@
     - dbus
     - libdbus-glib-1-dev
   when: ansible_distribution == "Debian"
-  tags: [fenrir]
+  tags:
+    - fenrir
 
 
 - name: Install Fenrir screen reader from pip
@@ -64,10 +71,12 @@
     name: fenrir-screenreader
     state: present
   when: (ansible_distribution == "Archlinux" or ansible_distribution == "Debian")
-  tags: [fenrir]
+  tags:
+    - fenrir
 
 - name: End of tasks from fenrir.yml
   debug:
     msg: "End of tasks from fenrir.yml"
-  tags: [fenrir]
+  tags:
+    - fenrir
 

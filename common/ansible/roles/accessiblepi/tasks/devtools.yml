@@ -24,7 +24,8 @@
     state: latest
     update_cache: yes
   when: ansible_distribution == "Archlinux"
-  tags: [devtools]
+  tags:
+    - devtools
 
 - name: Debian, install build-essential
   apt:
@@ -32,5 +33,6 @@
     state: latest
     update_cache: true
   when: ansible_distribution == "Debian"
-  tags: [devtools]
+  tags:
+    - devtools
 

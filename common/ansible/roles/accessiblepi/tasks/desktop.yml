@@ -5,5 +5,28 @@
 - name: Include tasks from mate.yml
   include_tasks: mate.yml
   when: desktop == "mate"
-  tags: [desktop]
+  tags:
+    - desktop
 
+- name: Include tasks from xinit.yml
+  include_tasks: xinit.yml
+  when: not skip_xinit
+  tags:
+    - desktop
+
+- name: Include tasks from orca.yml
+  include_tasks: orca.yml
+  when: not skip_orca
+  tags:
+    - desktop
+
+
+- name: Set accessibility switches
+  gsetting:
+    value: true
+  with_items:
+    - org.mate.interface.accessibility
+    - org.gnome.desktop.a11y.applications.screen-reader-enabled
+  when: desktop == "mate"
+  tags:
+    - desktop

@@ -13,11 +13,27 @@
   fail:
     msg: "No point in installing sound on 64-bit OS. No userland code available."
   when: ansible_architecture == "aarch64"
-  tags: [sound]
+  tags:
+    - sound
 
 - name: Arch, install sound related packages
   pacman:
     name: alsa-utils,libao
     update_cache: yes
   when: ansible_distribution == "Archlinux"
-  tags: [sound]
+  tags:
+    - sound
+
+- name: Debian, install sound related packages
+  apt:
+    name: "{{ item }}"
+    state: latest
+    update_cache: yes
+  with_items:
+    - alsa-utils
+    - libao4
+  when: ansible_distribution == "Debian"
+  tags:
+    - sound
+
+

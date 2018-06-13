@@ -7,7 +7,8 @@
     state: latest
     update_cache: yes
   when: ansible_distribution == "Archlinux"
-  tags: [braille]
+  tags:
+    - braille
 
 
 - name: Arch, install brltty-minimal from the AUR
@@ -16,7 +17,8 @@
     user: "{{ default_user }}"
     dir: /tmp
   when: ansible_distribution == "Archlinux"
-  tags: [braille]
+  tags:
+    - braille
 
 - name: Debian, install brltty
   apt:
@@ -26,7 +28,8 @@
   whith_items:
     - brltty
   when: ansible_distribution == "Debian"
-  tags: [braille]
+  tags:
+    - braille
 
 
 - name: Set accessibility switches
@@ -38,7 +41,8 @@
     - org.mate.interface.accessibility
     - org.gnome.desktop.a11y.applications.screen-reader-enabled
   when: ansible_distribution == "Debian"
-  tags: [braille]
+  tags:
+    - braille
 
 
 

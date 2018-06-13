@@ -13,20 +13,22 @@
   fail:
     msg: "No point in installing speakup/espeakup on 64-bit OS. No userland code available."
   when: ansible_architecture == "aarch64"
-  tags: [espeakup]
+  tags:
+    - espeakup
 
 - name: Debian, install espeakup
   apt:
     name: "{{ item }}"
     state: latest
-    update_cache: true
+    update_cache: yes
   with_items:
     - espeak
     - libespeak-dev
     - espeakup
   when: (ansible_distribution == "Debian"
         and console_screen_reader == "speakup")
-  tags: [espeakup]
+  tags:
+    - console
 
 - name: Copy speakup.conf to /etc/modules-load.d
   copy:
@@ -37,26 +39,33 @@
     mode: 0644
   when: (ansible_distribution == "Debian"
         and console_screen_reader == "speakup")
-  tags: [espeakup]
+  tags:
+    - console
 
 - name: Load speakup_soft for this session
   modprobe:
     name: speakup_soft
     state: present
-  when: ansible_distribution == "Debian"
-  tags: [espeakup]
+  when: (ansible_distribution == "Debian"
+        and console_screen_reader == "speakup")
+  tags:
+    - console
 
 - name: Enable espeakup service
   service:
     name: espeakup
     enabled: yes
-  when: ansible_distribution == "Debian"
-  tags: [espeakup]
+  when: (ansible_distribution == "Debian"
+        and console_screen_reader == "speakup")
+  tags:
+    - console
 
 - name: Start espeakup service
   service:
     name: espeakup
     state: started
-  when: ansible_distribution == "Debian"
-  tags: [espeakup]
+  when: (ansible_distribution == "Debian"
+        and console_screen_reader == "speakup")
+  tags:
+    - console
 

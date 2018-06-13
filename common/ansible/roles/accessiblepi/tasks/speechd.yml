@@ -13,24 +13,26 @@
   fail:
     msg: "No point in installing speech-dispatcher on 64-bit OS. No userland code available."
   when: ansible_architecture == "aarch64"
-  tags: [speechd]
+  tags:
+    - speechd
 
 - name: Arch, install speech-dispatcher
   pacman:
     name: speech-dispatcher
     update_cache: yes
   when: ansible_distribution == "Archlinux"
-  tags: [speechd]
+  tags:
+    - speechd
 
 - name: Debian, install speech-dispatcher
   apt:
     name: "{{ item }}"
   with_items:
-    - libao-common
     - speech-dispatcher
     - speech-dispatcher-espeak
   when: ansible_distribution == "Debian"
-  tags: [speechd]
+  tags:
+    - speechd
 
 
 - name: Install speechd.conf template
@@ -41,5 +43,6 @@
     owner: root
     group: root
     mode: 0644
-  tags: [speechd]
+  tags:
+    - speechd
 

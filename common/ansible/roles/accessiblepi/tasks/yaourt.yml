@@ -7,7 +7,8 @@
     user: "{{ default_user }}"
     dir: /tmp
   when: ansible_distribution == "Archlinux"
-  tags: [yaourt]
+  tags:
+    - yaourt
 
 - name: Arch, install yaourt
   aur:
@@ -15,4 +16,5 @@
     user: "{{ default_user }}"
     dir: /tmp
   when: ansible_distribution == "Archlinux"
-  tags: [yaourt]
+  tags:
+    - yaourt

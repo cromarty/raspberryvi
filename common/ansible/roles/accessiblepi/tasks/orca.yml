@@ -14,7 +14,8 @@
   fail:
     msg: "No point in installing Orca on 64-bit OS. No userland code available."
   when: ansible_architecture == "aarch64"
-  tags: [orca]
+  tags:
+    - orca
 
 - name: Arch, install Orca
   pacman:
@@ -22,7 +23,8 @@
     update_cache: yes
     state: latest
   when: ansible_distribution == "Archlinux"
-  tags: [orca]
+  tags:
+    - orca
 
 - name: Debian, install Orca screen reader
   apt:
@@ -30,7 +32,8 @@
     state: latest
     update_cache: yes
   when: ansible_distribution == "Debian"
-  tags: [orca]
+  tags:
+    - orca
 
 
 
@@ -41,7 +44,8 @@
     - org.mate.interface.accessibility
     - org.gnome.desktop.a11y.applications.screen-reader-enabled
   when: ansible_distribution == "Debian"
-  tags: [orca]
+  tags:
+    - orca
 
 - name: Set accessibility switches
   gsetting:
@@ -53,6 +57,7 @@
     - org.gnome.desktop.a11y.applications.screen-reader-enabled
   when: (ansible_distribution == "Debian"
         and desktop == "mate")
-  tags: [orca]
+  tags:
+    - orca
 
 
