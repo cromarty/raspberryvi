@@ -9,6 +9,7 @@ default_user: pi
 skip_devtools: false
 skip_espeakup: false
 skip_speechd: false
+skip_sound: false
 skip_fenrir: false
 skip_desktop: false
 skip_orca: false

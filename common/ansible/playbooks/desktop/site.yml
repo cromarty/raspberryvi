@@ -5,5 +5,5 @@
   become: yes
   gather_facts: yes
   roles:
-    - desktop.a11y
+    - accessiblepi
 
