@@ -1,4 +1,4 @@
-# new
+
 # Global configuration for Speech Dispatcher
 # ==========================================
 
@@ -20,7 +20,7 @@
 #
 # CommunicationMethod "unix_socket"
 
-# SocketPath is either "default" or a full path to the filesystem
+# SocketPath is either default" or a full path to the filesystem
 # where the driving Unix socket file should be created in case the
 # CommunicationMethod is set to "unix_socket". The default is
 # $XDG_RUNTIME_DIR/speech-dispatcher/speechd.sock where $XDG_RUNTIME_DIR
@@ -240,7 +240,7 @@ DefaultVolume 100
 # The DefaultModule selects which output module is the default.  You
 # must use one of the names of the modules loaded with AddModule.
 
-DefaultModule espeak
+DefaultModule "{{ DefaultModule }}"
 
 # The LanguageDefaultModule selects which output modules are prefered
 # for specified languages.

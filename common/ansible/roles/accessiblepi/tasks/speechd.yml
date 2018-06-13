@@ -1,4 +1,5 @@
 ---
+## speechd.yml
 
 #
 # Fail if architecture is 'aarch64' (64-bit Raspberry Pi with 64-bit OS).

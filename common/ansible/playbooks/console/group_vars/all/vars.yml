@@ -1,0 +1,40 @@
+---
+
+ansible_user: "{{ vault_ansible_user }}"
+ansible_become_pass: "{{ vault_ansible_become_pass }}"
+
+default_user: pi
+
+# which console screen reader
+console_screen_reader: speakup
+
+# skip tasks switches
+#
+# In all cases those switches which might appear from their name to be
+# distribution specific, such as skip_yaourt for
+# Arch Linux, are not critical here. Distribution is tested in the tasks
+# yaml file in the role
+#
+skip_devtools: false
+skip_yaourt: false
+skip_sound: false
+skip_user: false
+skip_speechd: false
+skip_console: false
+
+# graphical desktop related switches
+skip_desktop: true
+skip_xinit: true
+skip_orca: true
+
+# whether to install brltty for Braille support
+skip_braille: true
+
+
+# Which desktop
+desktop: mate
+
+# speech-dispatcher speechd.conf template variables
+# (/etc/speech-dispatcher/speechd.conf)
+AudioOutputMethod: libao
+DefaultModule: espeak

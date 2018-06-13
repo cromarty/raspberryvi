@@ -1,17 +1,26 @@
 ---
 
+
+# which screen reader, possible values fenrir or speakup
+console_screen_reader: speakup
+
+# skip variables control which tasks are included
 skip_devtools: false
 skip_yaourt: false
 skip_sound: false
-skip_espeakup: false
-skip_fenrir: false
+skip_user: false
 skip_speechd: false
+skip_console: false
 skip_desktop: false
+skip_xinit: false
 skip_orca: false
+skip_braille: false
+
+
 
 desktop: mate
 
 # speech-dispatcher speechd.conf template variables
 AudioOutputMethod: libao
-
+DefaultModule: espeak
 

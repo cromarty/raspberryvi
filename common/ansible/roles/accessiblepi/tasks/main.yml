@@ -1,7 +1,9 @@
 ---
+## main.yml
 
 - name: Start of tasks from main.yml
-  debug: msg="Start of tasks from main.yml"
+  debug:
+    msg: "Start of tasks from main.yml"
 
 #- name: Include tasks from pythonlink.yml
 #  include_tasks: pythonlink.yml
@@ -11,6 +13,11 @@
   include_tasks: devtools.yml
   when: not skip_devtools
   tags: [devtools]
+
+- name: Include tasks from yaourt.yml
+  include_tasks: yaourt.yml
+  when: not skip_yaourt
+  tags: [yaourt]
 
 - name: Include tasks from sound.yml
   include_tasks: sound.yml
@@ -22,31 +29,36 @@
   when: not skip_user
   tags: [user]
 
-- name: Include tasks from espeakup.yml
-  include_tasks: espeakup.yml
-  when: not skip_espeakup
-  tags: [espeakup]
-
 - name: Include tasks from speechd.yml
   include_tasks: speechd.yml
   when: not skip_speechd
   tags: [speechd]
 
-- name: Include tasks from fenrir.yml
-  include_tasks: fenrir.yml
-  when: not skip_fenrir
-  tags: [fenrir]
+- name: Include tasks from console.yml
+  include_tasks: console.yml
+  when: not skip_console
+  tags: [console]
 
-- name: Include tasks from mate.yml
-  include_tasks: mate.yml
-  when: (not skip_desktop
-        and desktop == "mate")
+
+- name: Include tasks from desktop.yml
+  include_tasks: desktop.yml
+  when: not skip_desktop
   tags: [desktop]
+
+- name: Include tasks from xinit.yml
+  include_tasks: xinit.yml
+  when: not skip_xinit
+  tags: [xinit]
 
 - name: Include tasks from orca.yml
   include_tasks: orca.yml
   when: not skip_orca
   tags: [orca]
+
+- name: Include tasks from braille.yml
+  include_tasks: braille.yml
+  when: not skip_braille
+  tags: [braille]
 
 - name: Set accessibility switches
   include_tasks: gsetting.a11y.yml
@@ -54,8 +66,5 @@
   tags: [a11y.switches]
 
 - name: End of tasks from main.yml
-  debug: msg="End of tasks from main.yml"
-
-
-
-
+  debug:
+    msg: "End of tasks from main.yml"

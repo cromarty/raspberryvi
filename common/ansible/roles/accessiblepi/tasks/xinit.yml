@@ -1,4 +1,5 @@
 ---
+## xinit.yml
 
 - name: Warn if architecture is aarch64
   debug: msg="Desktop will not be accessible with a screen reader on aarch64, no userland code available"

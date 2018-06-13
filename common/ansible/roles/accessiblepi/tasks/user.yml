@@ -1,9 +1,10 @@
 ---
+## user.yml
 
 - name: Arch, add default user to wheel and audio groups
   user:
     name: "{{ default_user }}"
-    groups: whell,audio
+    groups: wheel,audio
     append: yes
   when: ansible_distribution == "Archlinux"
   tags: [user]

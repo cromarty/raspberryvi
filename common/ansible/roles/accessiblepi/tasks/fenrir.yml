@@ -1,9 +1,15 @@
 ---
+## fenrir.yml
 
 - name: Start of tasks from fenrir.yml
   debug:
     msg: "Start of tasks from fenrir.yml"
   tags: [fenrir]
+
+#
+# The host needs to be running Python 3 in order to run
+# the Fenrir screen reader
+#
 
 - name: Test which version of Python is symlinked
   shell: python --version
@@ -53,7 +59,7 @@
   tags: [fenrir]
 
 
-- name: Arch or Debian, install Fenrir screen reader
+- name: Install Fenrir screen reader from pip
   pip:
     name: fenrir-screenreader
     state: present

@@ -1,4 +1,5 @@
 ---
+## espeakup.yml
 
 #
 # Fail if architecture is 'aarch64' (64-bit Raspberry Pi with 64-bit OS).
@@ -23,7 +24,8 @@
     - espeak
     - libespeak-dev
     - espeakup
-  when: ansible_distribution == "Debian"
+  when: (ansible_distribution == "Debian"
+        and console_screen_reader == "speakup")
   tags: [espeakup]
 
 - name: Copy speakup.conf to /etc/modules-load.d
@@ -33,7 +35,8 @@
     owner: root
     group: root
     mode: 0644
-  when: ansible_distribution == "Debian"
+  when: (ansible_distribution == "Debian"
+        and console_screen_reader == "speakup")
   tags: [espeakup]
 
 - name: Load speakup_soft for this session

@@ -1,4 +1,5 @@
 ---
+## yaourt.yml
 
 - name: Arch, install package-query
   aur:

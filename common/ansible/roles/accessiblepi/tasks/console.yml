@@ -1,0 +1,13 @@
+---
+## console.yml
+
+- name: Include tasks from espeakup.yml
+  include_tasks: espeakup.yml
+  when: console_screen_reader == "speakup"
+  tags: [console]
+
+- name: Include tasks from fenrir.yml
+   include_tasks: fenrir.yml
+  when: console_screen_reader == "fenrir"
+  tags: [console]
+
