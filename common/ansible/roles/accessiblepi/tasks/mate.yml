@@ -27,12 +27,9 @@
 
 - name: Debian, install Mate desktop
   apt:
-    name: "{{ item }}"
+    name: mate-core,mate-desktop-environment,lightdm
     state: latest
-  with_items:
-    - mate-core
-    - mate-desktop-environment
-    - lightdm
+    update_cache: yes
   when: (ansible_distribution == "Debian"
         and desktop == "mate")
   tags:

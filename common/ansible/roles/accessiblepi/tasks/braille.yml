@@ -22,11 +22,9 @@
 
 - name: Debian, install brltty
   apt:
-    name: "{{ item }}"
+    name: brltty
     state: latest
     update_cache: yes
-  whith_items:
-    - brltty
   when: ansible_distribution == "Debian"
   tags:
     - braille

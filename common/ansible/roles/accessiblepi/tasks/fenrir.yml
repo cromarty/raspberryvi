@@ -55,12 +55,9 @@
 
 - name: Debian, install Fenrir dependencies
   apt:
-    name: "{{ item }}"
+    name: dbus,libdbus-glib-1-dev
     state: latest
     update_cache: yes
-  with_items:
-    - dbus
-    - libdbus-glib-1-dev
   when: ansible_distribution == "Debian"
   tags:
     - fenrir

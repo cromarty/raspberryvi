@@ -22,6 +22,7 @@
   apt:
     name: xinit
     state: latest
+    update_cache: yes
   when: (ansible_distribution == "Debian"
         and not skip_xinit)
   tags:

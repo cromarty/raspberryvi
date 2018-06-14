@@ -26,12 +26,9 @@
 
 - name: Debian, install sound related packages
   apt:
-    name: "{{ item }}"
+    name: alsa-utils,libao4
     state: latest
     update_cache: yes
-  with_items:
-    - alsa-utils
-    - libao4
   when: ansible_distribution == "Debian"
   tags:
     - sound

@@ -26,10 +26,9 @@
 
 - name: Debian, install speech-dispatcher
   apt:
-    name: "{{ item }}"
-  with_items:
-    - speech-dispatcher
-    - speech-dispatcher-espeak
+    name: speech-dispatcher,speech-dispatcher-espeak
+    state: latest
+    update_cache: yes
   when: ansible_distribution == "Debian"
   tags:
     - speechd

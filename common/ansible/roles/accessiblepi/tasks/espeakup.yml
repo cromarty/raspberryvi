@@ -16,15 +16,30 @@
   tags:
     - espeakup
 
-- name: Debian, install espeakup
-  apt:
-    name: "{{ item }}"
+- name: Arch, install espeakup
+  pacman:
+    name: espeak,espeakup
     state: latest
     update_cache: yes
-  with_items:
-    - espeak
-    - libespeak-dev
-    - espeakup
+  when: (ansible_distribution == "Archlinux"
+        and console_screen_reader == "speakup")
+  tags:
+    - console
+
+#
+# On Debian derivatives we need to defer enabling and starting espeakup
+# because the package is still configured for SysVInit and calls to apt:
+# to install it without RUNLEVEL=1 fail.
+#
+
+
+- name: Debian, install espeakup
+  apt:
+    name: espeak,libespeak-dev,espeakup
+    state: latest
+    update_cache: yes
+  environment:
+    RUNLEVEL: 1
   when: (ansible_distribution == "Debian"
         and console_screen_reader == "speakup")
   tags:
