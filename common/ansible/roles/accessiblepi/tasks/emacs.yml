@@ -1,9 +1,9 @@
 ---
 ## emacs.yml
 
-- name: Arch, install emacs-nox and emacs-goodies-el
+- name: Arch, install emacs-nox
   pacman:
-    name: emacs-nox,emacs-goodies-el
+    name: emacs-nox
     state: latest
     update_cache: yes
   when: ansible_distribution == "Archlinux

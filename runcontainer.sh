@@ -4,8 +4,7 @@
 #
 #  common/docker/arch_ansible
 #
-This is needed when the machine 
-# on which you are running the playbooks has a Python version
+# This is needed when the machine on which you are running the playbooks has a Python version
 # significantly behind the one on the host machine(s).
 #
 # Example is running playbooks on 

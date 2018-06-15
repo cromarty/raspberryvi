@@ -9,12 +9,13 @@
   tags:
     - emacspeak
 
-- name: Arch, install emacs-nox and emacs-goodies-el
+- name: Arch, install emacs-nox
   pacman:
-    name: emacs-nox,emacs-goodies-el
+    name: emacs-nox
     state: latest
     update_cache: yes
-  when: ansible_distribution == "Archlinux
+  when: (ansible_distribution == "Archlinux
+        and not skip_emacspeak
   tags:
     - emacspeak
 
@@ -23,20 +24,25 @@
     name: emacs-nox,emacs-goodies-el
     state: latest
     update_cache: yes
-  when: ansible_distribution == "Debian"
+  when: (ansible_distribution == "Debian"
+    and not skip_emacspeak
   tags:
     - emacspeak
 
 - name: Arch, install emacspeak
   aur:
     name: emacspeak-git
-    user:
-
+    user: "{{ default_user }}"
+    dir: /tmp
+  when: (ansible_distribution == "Archlinux"
+        and not skip_emacspeak)
+  tags:
+    - emacspeak
 
 
 - name: Debian, install emacspeak
   apt:
-    name: emacspeak
+    name: emacspeak,emacspeak-espeak
     state: latest
     update_cache: yes
   when (ansible_distribution == "Debian"
