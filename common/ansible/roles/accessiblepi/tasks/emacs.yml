@@ -1,0 +1,21 @@
+---
+## emacs.yml
+
+- name: Arch, install emacs-nox and emacs-goodies-el
+  pacman:
+    name: emacs-nox,emacs-goodies-el
+    state: latest
+    update_cache: yes
+  when: ansible_distribution == "Archlinux
+  tags:
+    - emacs
+
+- name: Debian, install emacs-nox and emacs-goodies-el
+  apt:
+    name: emacs-nox,emacs-goodies-el
+    state: latest
+    update_cache: yes
+  when: ansible_distribution == "Debian"
+  tags:
+    - emacs
+

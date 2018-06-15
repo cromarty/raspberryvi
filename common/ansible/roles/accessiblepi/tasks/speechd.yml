@@ -12,7 +12,8 @@
 - name: Fail if architecture is aarch64
   fail:
     msg: "No point in installing speech-dispatcher on 64-bit OS. No userland code available."
-  when: ansible_architecture == "aarch64"
+  when: (ansible_architecture == "aarch64"
+        and host_type == "raspberrypi")
   tags:
     - speechd
 

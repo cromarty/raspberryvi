@@ -7,6 +7,15 @@
   tags:
     - fenrir
 
+
+- name: Fail if architecture is aarch64 on a Raspberry Pi
+  fail:
+    msg: "No point in installing fenrir on 64-bit OS. No userland code available."
+  when: (ansible_architecture == "aarch64"
+        and host_type == "raspberrypi"
+  tags:
+    - fenrir
+
 #
 # The host needs to be running Python 3 in order to run
 # the Fenrir screen reader

@@ -1,0 +1,50 @@
+---
+##extras.yml
+
+#
+# In these tasks caches are updated first before calls to apt module to install packages.
+#
+# This is because the with_items approach is inefficient
+# when 'update_cache: yes' is included in calls to install
+# stuff because it is updated for each package.
+#
+
+- name: Arch, update cache
+  pacman:
+    update_cache: yes
+  where: ansible_distribution == "Archlinux"
+  tags:
+    - extras
+
+- name: Arch, install extras
+  pacman:
+    name: "{{ item }}"
+    state: present
+    update_cache: no
+  with_items:
+    - dos2unix
+    - markdown
+  when: ansible_distribution == "Archlinux"
+  tags:
+    - extras
+
+- name: Debian, update cache
+  apt:
+    update_cache: yes
+  when: ansible_distribution == "Debian"
+  tags:
+    - extras
+
+- name: Debian, install extras
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: no
+  with_items:
+    - dos2unix
+    - markdown
+  when: ansible_distribution == "Debian"
+  tags:
+    - extras
+
+

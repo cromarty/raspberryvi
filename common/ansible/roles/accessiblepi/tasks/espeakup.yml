@@ -9,10 +9,11 @@
 # Raspberry Pi GPU.
 #
 
-- name: Fail if architecture is aarch64
+- name: Fail if architecture is aarch64 on a Raspberry Pi
   fail:
     msg: "No point in installing speakup/espeakup on 64-bit OS. No userland code available."
-  when: ansible_architecture == "aarch64"
+  when: (ansible_architecture == "aarch64"
+        and host_type == "raspberrypi")
   tags:
     - espeakup
 

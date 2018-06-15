@@ -13,3 +13,15 @@
   tags:
     - console
 
+- name: Include tasks from emacs.yml
+  include_tasks: emacs.yml
+  when: not skip_emacs
+  tags:
+    console
+
+- name: Include tasks from emacspeak.yml
+  include_tasks: emacspeak.yml
+  when: not skip_emacspeak
+  tags:
+    - console
+
