@@ -14,7 +14,7 @@
   when:
     - ansible_architecture == "aarch64"
   tags:
-    - desktop
+    - mate
 
 - name: Arch, install Mate desktop
   pacman:
@@ -24,7 +24,7 @@
   when:
     - ansible_distribution == "Archlinux"
   tags:
-    - desktop
+    - mate
 
 - name: Debian, install Mate desktop
   apt:
@@ -34,4 +34,4 @@
   when:
     - ansible_distribution == "Debian"
   tags:
-    - desktop
+    - mate

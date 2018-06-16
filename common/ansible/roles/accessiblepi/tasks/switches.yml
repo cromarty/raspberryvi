@@ -1,0 +1,18 @@
+
+#
+# The library module 'gsetting' doesn't seem to cope
+# unless the following task is in the
+# key=value form
+#
+
+- name: Set boolean accessibility switches
+  gsetting: user="{{ default_user }}" key="{{ item }}" value=true
+  with_items:
+    - org.mate.interface.accessibility
+    - org.gnome.desktop.a11y.applications.screen-reader-enabled
+  when:
+    - desktop == "mate"
+  tags:
+    - switches
+
+

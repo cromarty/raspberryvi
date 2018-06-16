@@ -28,14 +28,14 @@ skip_emacspeak: false
 # graphical desktop related switches
 skip_desktop: false
 skip_desktop_manager: false
-skip_xinit: false
+skip_xinit: true
 skip_orca: false
 
 # whether to install brltty for Braille support
-skip_braille: true
+skip_braille: false
 
 # extra stuff
-skip_extras: true
+skip_extras: false
 
 
 # desktop stuff

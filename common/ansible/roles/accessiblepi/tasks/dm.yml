@@ -26,29 +26,38 @@
     name: "{{ desktop_manager }}"
     state: latest
     update_cache: yes
-  environment:
-    RUNLEVEL: 1
   when:
     - ansible_distribution == "Debian"
   tags:
     - desktopmanager
 
-- name: Enable the "{{ desktop_manager }}" service
-  service:
-    name: "{{ desktop_manager }}"
-    enabled: yes
+
+- name: Add lightdm user to audio group
+  user:
+    name: lightdm
+    groups: audio
+    append: yes
   when:
-    - enable_desktop_manager
+    - desktop_manager == "lightdm"
   tags:
     - desktopmanager
 
+#- name: Enable the "{{ desktop_manager }}" service
+#  service:
+#    name: "{{ desktop_manager }}"
+#    enabled: yes
+#  when:
+#    - enable_desktop_manager
+#  tags:
+#    - desktopmanager
 
-- name: Start the "{{ desktop_manager }}" service
-  service:
-    name: "{{ desktop_manager }}"
-    state: started
-  when:
-    - start_desktop_manager
-  tags:
-    - desktopmanager
+
+#- name: Start the "{{ desktop_manager }}" service
+#  service:
+#    name: "{{ desktop_manager }}"
+#    state: started
+#  when:
+#    - start_desktop_manager
+#  tags:
+#    - desktopmanager
 

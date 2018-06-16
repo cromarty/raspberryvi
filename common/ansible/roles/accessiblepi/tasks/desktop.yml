@@ -23,6 +23,13 @@
   tags:
     - desktop
 
+- name: Import tasks from switches.yml
+  import_tasks: switches.yml
+  when:
+    - not skip_orca
+  tags:
+    - desktop
+
 
 - name: Import dm.yml
   import_tasks: dm.yml

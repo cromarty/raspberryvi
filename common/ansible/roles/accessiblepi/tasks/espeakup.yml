@@ -18,34 +18,6 @@
   tags:
     - espeakup
 
-- name: Arch, install espeakup
-  pacman:
-    name: espeak,espeakup
-    state: latest
-    update_cache: yes
-  when:
-    - ansible_distribution == "Archlinux"
-  tags:
-    - console
-
-#
-# On Debian derivatives we need to defer enabling and starting espeakup
-# because the package is still configured for SysVInit and calls to apt:
-# to install it without RUNLEVEL=1 fail.
-#
-
-
-- name: Debian, install espeakup
-  apt:
-    name: espeak,libespeak-dev,espeakup
-    state: latest
-    update_cache: yes
-  environment:
-    RUNLEVEL: 1
-  when:
-    - ansible_distribution == "Debian"
-  tags:
-    - console
 
 - name: Copy speakup.conf to /etc/modules-load.d
   copy:
@@ -57,7 +29,7 @@
   when:
     - ansible_distribution == "Debian"
   tags:
-    - console
+    - espeakup
 
 - name: Load speakup_soft for this session
   modprobe:
@@ -66,7 +38,46 @@
   when:
     - ansible_distribution == "Debian"
   tags:
-    - console
+    - espeakup
+
+- name: Arch, install espeakup
+  pacman:
+    name: espeak,espeakup
+    state: latest
+    update_cache: yes
+  when:
+    - ansible_distribution == "Archlinux"
+  tags:
+    - espeakup
+
+- name: Debian install espeak
+  apt:
+    name: espeak,libespeak-dev
+    state: latest
+    update_cache: yes
+  when:
+    - ansible_distribution == "Debian"
+  tags:
+    - espeakup
+
+#
+# On Debian derivatives we need to defer enabling and starting espeakup
+# because the package is still configured for SysVInit and calls to apt:
+# to install it without RUNLEVEL=1 fail.
+#
+
+- name: Debian, install espeakup
+  apt:
+    name: espeakup
+    state: latest
+    update_cache: yes
+  environment:
+    RUNLEVEL: 1
+  when:
+    - ansible_distribution == "Debian"
+  tags:
+    - espeakup
+
 
 - name: Enable espeakup service
   service:
@@ -75,7 +86,7 @@
   when:
     - ansible_distribution == "Debian"
   tags:
-    - console
+    - espeakup
 
 - name: Start espeakup service
   service:
@@ -84,5 +95,5 @@
   when:
     - ansible_distribution == "Debian"
   tags:
-    - console
+    - espeakup
 

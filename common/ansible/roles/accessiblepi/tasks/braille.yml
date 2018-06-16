@@ -33,19 +33,5 @@
     - braille
 
 
-- name: Set accessibility switches
-  gsetting:
-    user: "{{ default_user }}"
-    key: "{{ item }}"
-    value: true
-  with_items:
-    - org.mate.interface.accessibility
-    - org.gnome.desktop.a11y.applications.screen-reader-enabled
-  when:
-    - ansible_distribution == "Debian"
-  tags:
-    - braille
-
-
 
 
