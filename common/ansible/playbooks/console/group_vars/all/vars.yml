@@ -27,7 +27,7 @@ skip_emacspeak: false
 
 # graphical desktop related switches
 skip_desktop: false
-skip_desktop_manager: true
+skip_desktop_manager: false
 skip_xinit: false
 skip_orca: false
 
@@ -38,8 +38,12 @@ skip_braille: true
 skip_extras: true
 
 
-# Which desktop
+# desktop stuff
 desktop: mate
+desktop_manager: lightdm
+enable_desktop_manager: false
+start_desktop_manager: false
+
 
 # .xinitrc exec string
 xinit_exec_string: mate-session

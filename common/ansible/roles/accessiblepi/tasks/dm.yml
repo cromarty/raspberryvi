@@ -3,13 +3,13 @@
 
 - name: Fail if unsupported desktop manager
   fail:
-    msg: Desktop manager {{ desktop_manager }} is not supported yet"
+    msg: "Desktop manager {{ desktop_manager }} is not supported yet"
   when:
     - desktop_manager not in ["lightdm", "lxdm"]
   tags:
     - desktopmanager
 
-- name: Arch, install "{{ desktop_manager }}" desktop manager
+- name: Arch, install the {{ desktop_manager }} desktop manager
   pacman:
     name: "{{ desktop_manager }}"
     state: latest
@@ -21,7 +21,7 @@
   tags:
     - desktopmanager
 
-- name: Debian, install "{{ desktop_manager }}" desktop manager
+- name: Debian, install the {{ desktop_manager }} desktop manager
   apt:
     name: "{{ desktop_manager }}"
     state: latest
@@ -30,6 +30,25 @@
     RUNLEVEL: 1
   when:
     - ansible_distribution == "Debian"
+  tags:
+    - desktopmanager
+
+- name: Enable the "{{ desktop_manager }}" service
+  service:
+    name: "{{ desktop_manager }}"
+    enabled: yes
+  when:
+    - enable_desktop_manager
+  tags:
+    - desktopmanager
+
+
+- name: Start the "{{ desktop_manager }}" service
+  service:
+    name: "{{ desktop_manager }}"
+    state: started
+  when:
+    - start_desktop_manager
   tags:
     - desktopmanager
 

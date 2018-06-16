@@ -1,5 +1,8 @@
 ---
 
+# user and group
+default_user: pi
+default_group: pi
 
 # which screen reader, possible values fenrir or speakup
 console_screen_reader: speakup
@@ -22,7 +25,11 @@ skip_extras: false
 
 
 
+# desktop related stuff. 
 desktop: mate
+desktop_manager: lightdm
+enable_desktop_manager: false
+start_desktop_manager: false
 
 # speech-dispatcher speechd.conf template variables
 AudioOutputMethod: libao
