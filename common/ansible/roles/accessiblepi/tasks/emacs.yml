@@ -7,7 +7,7 @@
     state: latest
     update_cache: yes
   when:
-    - ansible_distribution == "Archlinux
+    - ansible_distribution == "Archlinux"
   tags:
     - emacs
 

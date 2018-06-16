@@ -5,9 +5,8 @@
   debug: msg="Desktop will not be accessible with a screen reader on aarch64, no userland code available"
   when:
     - ansible_architecture == "aarch64"
-    - not skip_xinit
   tags:
-    - desktop
+    - xinit
 
 - name: Arch, install xinit
   pacman:
@@ -16,9 +15,8 @@
     update_cache: yes
   when:
     - ansible_distribution == "Archlinux"
-    - not skip_xinit
   tags:
-    - desktop
+    - xinit
 
 - name: Debian, install xinit
   apt:
@@ -27,6 +25,18 @@
     update_cache: yes
   when:
     - ansible_distribution == "Debian"
-    - not skip_xinit
   tags:
-    - desktop
+    - xinit
+
+
+- name: Install .xinitrc template
+  template:
+    src: xinitrc.j2
+    dest: /home/{{ default_user }}/.xinitrc
+    backup: yes
+    owner: "{{ default_user }}"
+    group: "{{ default_group }}"
+    mode: 0644
+  tags:
+    - xinit
+

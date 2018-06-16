@@ -7,25 +7,29 @@
   when:
     - desktop_manager not in ["lightdm", "lxdm"]
   tags:
-    - desktop
+    - desktopmanager
 
 - name: Arch, install "{{ desktop_manager }}" desktop manager
   pacman:
     name: "{{ desktop_manager }}"
     state: latest
     update_cache: yes
+  environment:
+    RUNLEVEL: 1
   when:
     - ansible_distribution == "Archlinux"
   tags:
-    - desktop
+    - desktopmanager
 
 - name: Debian, install "{{ desktop_manager }}" desktop manager
   apt:
     name: "{{ desktop_manager }}"
     state: latest
     update_cache: yes
+  environment:
+    RUNLEVEL: 1
   when:
     - ansible_distribution == "Debian"
   tags:
-    - desktop
+    - desktopmanager
 

@@ -43,17 +43,6 @@
 
 - name: Set accessibility switches
   gsetting:
-    value: true
-  with_items:
-    - org.mate.interface.accessibility
-    - org.gnome.desktop.a11y.applications.screen-reader-enabled
-  when:
-    - desktop == "mate"
-  tags:
-    - orca
-
-- name: Set accessibility switches
-  gsetting:
     user: "{{ default_user }}"
     key: "{{ item }}"
     value: true

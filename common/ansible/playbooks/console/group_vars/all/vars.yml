@@ -4,6 +4,7 @@ ansible_user: "{{ vault_ansible_user }}"
 ansible_become_pass: "{{ vault_ansible_become_pass }}"
 
 default_user: pi
+default_group: pi
 
 # which console screen reader
 console_screen_reader: speakup
@@ -20,19 +21,28 @@ skip_yaourt: false
 skip_sound: false
 skip_user: false
 skip_speechd: false
+skip_emacs: false
 skip_console: false
+skip_emacspeak: false
 
 # graphical desktop related switches
-skip_desktop: true
-skip_xinit: true
-skip_orca: true
+skip_desktop: false
+skip_desktop_manager: true
+skip_xinit: false
+skip_orca: false
 
 # whether to install brltty for Braille support
 skip_braille: true
 
+# extra stuff
+skip_extras: true
+
 
 # Which desktop
 desktop: mate
+
+# .xinitrc exec string
+xinit_exec_string: mate-session
 
 # speech-dispatcher speechd.conf template variables
 # (/etc/speech-dispatcher/speechd.conf)

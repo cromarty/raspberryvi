@@ -14,6 +14,7 @@ skip_console: false
 skip_emacs: false
 skip_emacspeak: false
 skip_desktop: false
+skip_desktop_manager: false
 skip_xinit: false
 skip_orca: false
 skip_braille: false

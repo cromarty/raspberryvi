@@ -16,7 +16,7 @@
     state: latest
     update_cache: yes
   when:
-    - ansible_distribution == "Archlinux
+    - ansible_distribution == "Archlinux"
   tags:
     - emacspeak
 
@@ -43,10 +43,10 @@
 
 - name: Debian, install emacspeak
   apt:
-    name: emacspeak,emacspeak-espeak
+    name: emacspeak,emacspeak-espeak-server
     state: latest
     update_cache: yes
-  when
+  when:
     - ansible_distribution == "Debian"
   tags:
     - emacspeak

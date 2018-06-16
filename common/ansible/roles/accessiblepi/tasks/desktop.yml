@@ -30,14 +30,3 @@
     - not skip_desktop_manager
   tags:
     - desktop
-
-- name: Set accessibility switches
-  gsetting:
-    value: true
-  with_items:
-    - org.mate.interface.accessibility
-    - org.gnome.desktop.a11y.applications.screen-reader-enabled
-  when:
-    - desktop == "mate"
-  tags:
-    - desktop
