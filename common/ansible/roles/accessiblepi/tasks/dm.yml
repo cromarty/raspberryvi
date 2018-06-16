@@ -1,0 +1,31 @@
+---
+## dm.yml
+
+- name: Fail if unsupported desktop manager
+  fail:
+    msg: Desktop manager {{ desktop_manager }} is not supported yet"
+  when:
+    - desktop_manager not in ["lightdm", "lxdm"]
+  tags:
+    - desktop
+
+- name: Arch, install "{{ desktop_manager }}" desktop manager
+  pacman:
+    name: "{{ desktop_manager }}"
+    state: latest
+    update_cache: yes
+  when:
+    - ansible_distribution == "Archlinux"
+  tags:
+    - desktop
+
+- name: Debian, install "{{ desktop_manager }}" desktop manager
+  apt:
+    name: "{{ desktop_manager }}"
+    state: latest
+    update_cache: yes
+  when:
+    - ansible_distribution == "Debian"
+  tags:
+    - desktop
+

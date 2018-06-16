@@ -11,8 +11,9 @@
 - name: Fail if architecture is aarch64 on a Raspberry Pi
   fail:
     msg: "No point in installing fenrir on 64-bit OS. No userland code available."
-  when: (ansible_architecture == "aarch64"
-        and host_type == "raspberrypi"
+  when:
+    - ansible_architecture == "aarch64"
+    - is defined raspberry_pi
   tags:
     - fenrir
 
@@ -31,7 +32,8 @@
 - name: Fail if not running Python 3
   fail:
     msg: "Fenrir needs Python 3"
-  when: python_version.stdout.find('Python 3') == -1
+  when:
+    - python_version.stdout.find('Python 3') == -1
   tags:
     - fenrir
 
@@ -40,7 +42,8 @@
     name: python-pip
     state: latest
     update_cache: yes
-  when: ansible_distribution == "Archlinux"
+  when:
+    - ansible_distribution == "Archlinux"
   tags:
     - fenrir
 
@@ -49,7 +52,8 @@
     name: python3-pip
     state: latest
     update_cache: yes
-  when: ansible_distribution == "Debian"
+  when:
+    - ansible_distribution == "Debian"
   tags:
     - fenrir
 
@@ -58,7 +62,8 @@
     name: dbus
     state: latest
     update_cache: yes
-  when: ansible_distribution == "Archlinux"
+  when:
+    - ansible_distribution == "Archlinux"
   tags:
     - fenrir
 
@@ -67,7 +72,8 @@
     name: dbus,libdbus-glib-1-dev
     state: latest
     update_cache: yes
-  when: ansible_distribution == "Debian"
+  when:
+    - ansible_distribution == "Debian"
   tags:
     - fenrir
 
@@ -76,7 +82,8 @@
   pip:
     name: fenrir-screenreader
     state: present
-  when: (ansible_distribution == "Archlinux" or ansible_distribution == "Debian")
+  when:
+    - ansible_distribution in ["Archlinux", "Debian"]
   tags:
     - fenrir
 

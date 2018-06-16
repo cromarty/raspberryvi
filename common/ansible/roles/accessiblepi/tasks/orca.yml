@@ -13,8 +13,9 @@
 - name: Fail if architecture is aarch64
   fail:
     msg: "No point in installing Orca on 64-bit OS. No userland code available."
-  when: (ansible_architecture == "aarch64"
-        and host_type == "raspberrypi")
+  when:
+    - ansible_architecture == "aarch64"
+    - is defined raspberry_pi
   tags:
     - orca
 
@@ -23,7 +24,8 @@
     name: orca
     update_cache: yes
     state: latest
-  when: ansible_distribution == "Archlinux"
+  when:
+    - ansible_distribution == "Archlinux"
   tags:
     - orca
 
@@ -32,7 +34,8 @@
     name: gnome-orca
     state: latest
     update_cache: yes
-  when: ansible_distribution == "Debian"
+  when:
+    - ansible_distribution == "Debian"
   tags:
     - orca
 
@@ -44,7 +47,8 @@
   with_items:
     - org.mate.interface.accessibility
     - org.gnome.desktop.a11y.applications.screen-reader-enabled
-  when: ansible_distribution == "Debian"
+  when:
+    - desktop == "mate"
   tags:
     - orca
 
@@ -56,8 +60,8 @@
   with_items:
     - org.mate.interface.accessibility
     - org.gnome.desktop.a11y.applications.screen-reader-enabled
-  when: (ansible_distribution == "Debian"
-        and desktop == "mate")
+  when:
+    - desktop == "mate"
   tags:
     - orca
 

@@ -12,8 +12,9 @@
 - name: Fail if architecture is aarch64 on a Raspberry Pi
   fail:
     msg: "No point in installing speakup/espeakup on 64-bit OS. No userland code available."
-  when: (ansible_architecture == "aarch64"
-        and host_type == "raspberrypi")
+  when:
+    - ansible_architecture == "aarch64"
+    - is defined raspberry_pi
   tags:
     - espeakup
 
@@ -22,8 +23,8 @@
     name: espeak,espeakup
     state: latest
     update_cache: yes
-  when: (ansible_distribution == "Archlinux"
-        and console_screen_reader == "speakup")
+  when:
+    - ansible_distribution == "Archlinux"
   tags:
     - console
 
@@ -41,8 +42,8 @@
     update_cache: yes
   environment:
     RUNLEVEL: 1
-  when: (ansible_distribution == "Debian"
-        and console_screen_reader == "speakup")
+  when:
+    - ansible_distribution == "Debian"
   tags:
     - console
 
@@ -53,8 +54,8 @@
     owner: root
     group: root
     mode: 0644
-  when: (ansible_distribution == "Debian"
-        and console_screen_reader == "speakup")
+  when:
+    - ansible_distribution == "Debian"
   tags:
     - console
 
@@ -62,8 +63,8 @@
   modprobe:
     name: speakup_soft
     state: present
-  when: (ansible_distribution == "Debian"
-        and console_screen_reader == "speakup")
+  when:
+    - ansible_distribution == "Debian"
   tags:
     - console
 
@@ -71,8 +72,8 @@
   service:
     name: espeakup
     enabled: yes
-  when: (ansible_distribution == "Debian"
-        and console_screen_reader == "speakup")
+  when:
+    - ansible_distribution == "Debian"
   tags:
     - console
 
@@ -80,8 +81,8 @@
   service:
     name: espeakup
     state: started
-  when: (ansible_distribution == "Debian"
-        and console_screen_reader == "speakup")
+  when:
+    - ansible_distribution == "Debian"
   tags:
     - console
 

@@ -1,16 +1,5 @@
 ---
 
-# host_typeis used by tasks that check whether the
-# architecture is 'aarch64'.
-# This is because for 64-bit OSes running on RaspberryPi, there is
-# currently no code available to queue audio into
-# the GPU (the 'userland' code).
-# Set host_type here or in plays using this
-# role to 'raspberrypi' for Raspberry Pi hosts
-# to prevent installation of accessibility stuff.
-# Any other string, for example 'generic' otherwise
-host_type: generic
-
 
 # which screen reader, possible values fenrir or speakup
 console_screen_reader: speakup

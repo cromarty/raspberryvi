@@ -5,70 +5,81 @@
   debug:
     msg: "Start of tasks from main.yml"
 
-- name: Include tasks from devtools.yml
-  include_tasks: devtools.yml
-  when: not skip_devtools
+- name: import tasks from devtools.yml
+  import_tasks: devtools.yml
+  when:
+    - not skip_devtools
   tags:
     - devtools
 
-- name: Include tasks from yaourt.yml
-  include_tasks: yaourt.yml
-  when: not skip_yaourt
+- name: import tasks from yaourt.yml
+  import_tasks: yaourt.yml
+  when:
+    - ansible_distribution == "Archlinux"
+    - not skip_yaourt
   tags:
     - yaourt
 
-- name: Include tasks from sound.yml
-  include_tasks: sound.yml
-  when: not skip_sound
+- name: import tasks from sound.yml
+  import_tasks: sound.yml
+  when:
+    - not skip_sound
   tags:
     - sound
 
-- name: Include tasks from user.yml
-  include_tasks: user.yml
-  when: not skip_user
+- name: import tasks from user.yml
+  import_tasks: user.yml
+  when:
+    - not skip_user
   tags:
     - user
 
-- name: Include tasks from speechd.yml
-  include_tasks: speechd.yml
-  when: not skip_speechd
+- name: import tasks from speechd.yml
+  import_tasks: speechd.yml
+  when:
+    - not skip_speechd
   tags:
     - speechd
 
 
 #
-# emacs-nox is installed in emacs.yml but same tasks are included
+# emacs-nox is installed in emacs.yml but same tasks are imported
 # in console.yml as a dependency of emacspeak
 #
 
-- name: Include tasks from emacs.yml
-  include_tasks: emacs.yml
-  when: not skip_emacs
+- name: import tasks from emacs.yml
+  import_tasks: emacs.yml
+  when:
+    - not skip_emacs
   tags:
     - emacs
 
-- name: Include tasks from console.yml
-  include_tasks: console.yml
-  when: not skip_console
+- name: import tasks from console.yml
+  import_tasks: console.yml
+  when:
+    - not skip_console
   tags:
     - console
 
 
-- name: Include tasks from desktop.yml
-  include_tasks: desktop.yml
-  when: not skip_desktop
+- name: import tasks from desktop.yml
+  import_tasks: desktop.yml
+  when:
+    - not skip_desktop
   tags:
     - desktop
 
-- name: Include tasks from braille.yml
-  include_tasks: braille.yml
-  when: not skip_braille
+- name: import tasks from braille.yml
+  import_tasks: braille.yml
+  when:
+    - not skip_braille
   tags:
     - braille
 
-- name: Include tasks from extras.yml
-  include_tasks: extras.yml
-  when: not skip_extras
+- name: import tasks from extras.yml
+  import_tasks: extras.yml
+  when:
+    - not skip_extras
   tags:
     - extras
 

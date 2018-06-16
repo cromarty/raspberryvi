@@ -1,5 +1,5 @@
 ---
-## mate.yml
+## i3.yml
 
 #
 # Debug msg if architecture is 'aarch64' (64-bit Raspberry Pi with 64-bit OS).
@@ -16,9 +16,9 @@
   tags:
     - desktop
 
-- name: Arch, install Mate desktop
+- name: Arch, install i3 desktop
   pacman:
-    name: mate,mate-extra
+    name: i3
     state: latest
     update_cache: yes
   when:
@@ -26,12 +26,13 @@
   tags:
     - desktop
 
-- name: Debian, install Mate desktop
+- name: Debian, install i3 desktop
   apt:
-    name: mate-core,mate-desktop-environment
+    name: i3
     state: latest
     update_cache: yes
   when:
     - ansible_distribution == "Debian"
   tags:
     - desktop
+

@@ -6,7 +6,8 @@
     name: emacs-nox
     state: latest
     update_cache: yes
-  when: ansible_distribution == "Archlinux
+  when:
+    - ansible_distribution == "Archlinux
   tags:
     - emacs
 
@@ -15,7 +16,8 @@
     name: emacs-nox,emacs-goodies-el
     state: latest
     update_cache: yes
-  when: ansible_distribution == "Debian"
+  when:
+    - ansible_distribution == "Debian"
   tags:
     - emacs
 

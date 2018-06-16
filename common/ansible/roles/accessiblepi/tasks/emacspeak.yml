@@ -4,8 +4,9 @@
 - name: Fail if aarch64 on a Raspberry Pi
   fail:
     msg: "No point in installing emacspeak on 64-bit OS. No userland code available."
-  when: (ansible_architecture == "aarch64"
-        and host_type == "raspberrypi"
+  when:
+    - ansible_architecture == "aarch64"
+    - is defined raspberry_pi
   tags:
     - emacspeak
 
@@ -14,8 +15,8 @@
     name: emacs-nox
     state: latest
     update_cache: yes
-  when: (ansible_distribution == "Archlinux
-        and not skip_emacspeak
+  when:
+    - ansible_distribution == "Archlinux
   tags:
     - emacspeak
 
@@ -24,8 +25,8 @@
     name: emacs-nox,emacs-goodies-el
     state: latest
     update_cache: yes
-  when: (ansible_distribution == "Debian"
-    and not skip_emacspeak
+  when:
+    - ansible_distribution == "Debian"
   tags:
     - emacspeak
 
@@ -34,8 +35,8 @@
     name: emacspeak-git
     user: "{{ default_user }}"
     dir: /tmp
-  when: (ansible_distribution == "Archlinux"
-        and not skip_emacspeak)
+  when:
+    - ansible_distribution == "Archlinux"
   tags:
     - emacspeak
 
@@ -45,8 +46,8 @@
     name: emacspeak,emacspeak-espeak
     state: latest
     update_cache: yes
-  when (ansible_distribution == "Debian"
-        and not skip_emacspeak)
+  when
+    - ansible_distribution == "Debian"
   tags:
     - emacspeak
 

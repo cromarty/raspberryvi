@@ -2,24 +2,34 @@
 ## desktop.yml
 
 
-- name: Include tasks from mate.yml
-  include_tasks: mate.yml
-  when: desktop == "mate"
+- name: Import tasks from mate.yml
+  import_tasks: mate.yml
+  when:
+    - desktop == "mate"
   tags:
     - desktop
 
-- name: Include tasks from xinit.yml
-  include_tasks: xinit.yml
-  when: not skip_xinit
+- name: Import tasks from xinit.yml
+  import_tasks: xinit.yml
+  when:
+    - not skip_xinit
   tags:
     - desktop
 
-- name: Include tasks from orca.yml
-  include_tasks: orca.yml
-  when: not skip_orca
+- name: Import tasks from orca.yml
+  import_tasks: orca.yml
+  when:
+    - not skip_orca
   tags:
     - desktop
 
+
+- name: Import dm.yml
+  import_tasks: dm.yml
+  when:
+    - not skip_desktop_manager
+  tags:
+    - desktop
 
 - name: Set accessibility switches
   gsetting:
@@ -27,6 +37,7 @@
   with_items:
     - org.mate.interface.accessibility
     - org.gnome.desktop.a11y.applications.screen-reader-enabled
-  when: desktop == "mate"
+  when:
+    - desktop == "mate"
   tags:
     - desktop

@@ -6,7 +6,8 @@
     name: icu,liblouis
     state: latest
     update_cache: yes
-  when: ansible_distribution == "Archlinux"
+  when:
+    - ansible_distribution == "Archlinux"
   tags:
     - braille
 
@@ -16,7 +17,8 @@
     name: brltty-minimal
     user: "{{ default_user }}"
     dir: /tmp
-  when: ansible_distribution == "Archlinux"
+  when:
+    - ansible_distribution == "Archlinux"
   tags:
     - braille
 
@@ -25,7 +27,8 @@
     name: brltty
     state: latest
     update_cache: yes
-  when: ansible_distribution == "Debian"
+  when:
+    - ansible_distribution == "Debian"
   tags:
     - braille
 
@@ -38,7 +41,8 @@
   with_items:
     - org.mate.interface.accessibility
     - org.gnome.desktop.a11y.applications.screen-reader-enabled
-  when: ansible_distribution == "Debian"
+  when:
+    - ansible_distribution == "Debian"
   tags:
     - braille
 

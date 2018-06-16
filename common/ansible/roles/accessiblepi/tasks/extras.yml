@@ -12,7 +12,8 @@
 - name: Arch, update cache
   pacman:
     update_cache: yes
-  where: ansible_distribution == "Archlinux"
+  when:
+    - ansible_distribution == "Archlinux"
   tags:
     - extras
 
@@ -24,14 +25,16 @@
   with_items:
     - dos2unix
     - markdown
-  when: ansible_distribution == "Archlinux"
+  when:
+    - ansible_distribution == "Archlinux"
   tags:
     - extras
 
 - name: Debian, update cache
   apt:
     update_cache: yes
-  when: ansible_distribution == "Debian"
+  when:
+    - ansible_distribution == "Debian"
   tags:
     - extras
 
@@ -43,7 +46,8 @@
   with_items:
     - dos2unix
     - markdown
-  when: ansible_distribution == "Debian"
+  when:
+    - ansible_distribution == "Debian"
   tags:
     - extras
 

@@ -12,8 +12,9 @@
 - name: Fail if architecture is aarch64
   fail:
     msg: "No point in installing sound on 64-bit OS. No userland code available."
-  when: (ansible_architecture == "aarch64"
-        and host_type == "raspberrypi")
+  when:
+    - ansible_architecture == "aarch64"
+    - is defined raspberry_pi
   tags:
     - sound
 
@@ -21,7 +22,8 @@
   pacman:
     name: alsa-utils,libao
     update_cache: yes
-  when: ansible_distribution == "Archlinux"
+  when:
+    - ansible_distribution == "Archlinux"
   tags:
     - sound
 
@@ -30,7 +32,8 @@
     name: alsa-utils,libao4
     state: latest
     update_cache: yes
-  when: ansible_distribution == "Debian"
+  when:
+    - ansible_distribution == "Debian"
   tags:
     - sound
 

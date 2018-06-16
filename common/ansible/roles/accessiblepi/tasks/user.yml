@@ -6,7 +6,8 @@
     name: "{{ default_user }}"
     groups: wheel,audio
     append: yes
-  when: ansible_distribution == "Archlinux"
+  when:
+    - ansible_distribution == "Archlinux"
   tags:
     - user
 

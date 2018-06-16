@@ -1,27 +1,31 @@
 ---
 ## console.yml
 
-- name: Include tasks from espeakup.yml
-  include_tasks: espeakup.yml
-  when: console_screen_reader == "speakup"
+- name: Import tasks from espeakup.yml
+  import_tasks: espeakup.yml
+  when:
+    - console_screen_reader == "speakup"
   tags:
     - console
 
-- name: Include tasks from fenrir.yml
-  include_tasks: fenrir.yml
-  when: console_screen_reader == "fenrir"
+- name: Import tasks from fenrir.yml
+  import_tasks: fenrir.yml
+  when:
+    - console_screen_reader == "fenrir"
   tags:
     - console
 
-- name: Include tasks from emacs.yml
-  include_tasks: emacs.yml
-  when: not skip_emacs
+- name: Import tasks from emacs.yml
+  import_tasks: emacs.yml
+  when:
+    - not skip_emacspeak
   tags:
     console
 
-- name: Include tasks from emacspeak.yml
-  include_tasks: emacspeak.yml
-  when: not skip_emacspeak
+- name: Import tasks from emacspeak.yml
+  import_tasks: emacspeak.yml
+  when:
+    - not skip_emacspeak
   tags:
     - console
 
