@@ -31,6 +31,17 @@
   tags:
     - desktopmanager
 
+- name: Copy the lightdm.conf file
+  file:
+    src: lightdm.conf
+    dest: /etc/lightdm/lightdm.conf
+    owner: root
+    group: root
+    mode: 0644
+  when:
+    - ansible_distribution == "Debian"
+  tags:
+    - desktopmanager
 
 - name: Add lightdm user to audio group
   user:
@@ -39,6 +50,15 @@
     append: yes
   when:
     - desktop_manager == "lightdm"
+  tags:
+    - desktopmanager
+
+- name: Delete /etc/xdg/autostart/pulseaudio.desktop
+  file:
+    path: /etc/xdg/autostart/pulseaudio.desktop
+    state: absent
+  when:
+    - ansible_distribution == "Debian"
   tags:
     - desktopmanager
 

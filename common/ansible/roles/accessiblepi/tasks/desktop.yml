@@ -37,3 +37,9 @@
     - not skip_desktop_manager
   tags:
     - desktop
+
+- name: Import xkeyboard.yml
+  import_tasks: xkeyboard.yml
+  tags:
+    - desktop
+

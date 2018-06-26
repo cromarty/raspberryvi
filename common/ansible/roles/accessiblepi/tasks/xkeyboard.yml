@@ -1,0 +1,43 @@
+---
+## xkeyboard.yml
+
+- name: Arch, install xbindkeys and xdotool
+  pacman:
+    name: xbindkeys,xdotool
+    state: latest
+    update_cache: yes
+  when:
+    - ansible_distribution == "Archlinux"
+  tags:
+    - xkeyboard
+
+- name: Debian, install xbindkeys and xdotool
+  apt:
+    name: xbindkeys,xdotool
+    state: latest
+    update_cache: yes
+  when:
+    - ansible_distribution == "Debian"
+  tags:
+    - xkeyboard
+
+- name: Copy xkeybindkeysrc to .xkeybindkeysrc
+  file:
+    src: xkeybindkeysrc
+    dest: /home/{{ default_user }}/.xkeybindkeysrc
+    owner: "{{ default_user }}"
+    group: "{{ default_group }}"
+    mode: 0644
+  tags:
+    - xkeyboard
+
+- name: Copy xsessionrc to .xsessionrc
+  file:
+    src: xsessionrc
+    dest: /home/{{ default_user }}/.xsessionrc
+    owner: "{{ default_user }}"
+    group: "{{ default_group }}"
+    mode: 0644
+  tags:
+    - xkeyboard
+

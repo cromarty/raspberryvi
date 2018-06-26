@@ -29,7 +29,7 @@
 
 - name: Debian, install sound related packages
   apt:
-    name: alsa-utils,libao4
+    name: alsa-utils,libao4,libao-dev
     state: latest
     update_cache: yes
   when:

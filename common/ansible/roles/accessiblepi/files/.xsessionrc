@@ -1,0 +1,9 @@
+
+xbindkeys
+
+touch mate-started
+
+if [ -f $HOME/.config/alsa/asound.state ]; then
+    alsactl -f $HOME/.config/alsa/asound.state restore
+fi
+
