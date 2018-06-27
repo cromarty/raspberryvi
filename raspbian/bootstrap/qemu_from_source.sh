@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# this doesn't work yet
+
+
 
 
 (( EUID == 0 )) || { echo "Script must be run as root." ; exit 1 ; }
